@@ -1,27 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
-import { getAuth } from 'firebase/auth'
+import { getAuth ,onAuthStateChanged } from 'firebase/auth'
 import { useAppSelector } from '../../redux/hooks/redux-hooks'
 import { useAuth } from '../../redux/hooks/use-auth'
 import { Navigate } from 'react-router-dom'
 import PagesRoutes from '../../constants/router-types'
 import ReusableModal from '../../components/Header/modals/ReusableModal'
 import ModalUploadImage from '../../components/Header/modals/ModalUploadImage/ModalUploadImage'
+import { fetchUser } from '../../redux/slices/userSlice/userSlice/thunk/setFetchUser'
+import { useAppDispatch } from '../../redux/hooks/redux-hooks'
 
 const Profile = () => {
+    const dispatch = useAppDispatch()
     const auth = getAuth()
+    const user = useAppSelector(user => user.user.user)
+
+   
     const { email, profileImage, userName, followers, posts, following, fullName } = useAppSelector(state => state.user.user)
     const { isAuth } = useAuth()
     const [visible, setVisible] = useState(false)
-    return isAuth ? (
+    return auth ? (
 
         <div className='flex'>
             <Header />
-            <div className='w-[100%] flex justify-center bg-gray-100'>
+            <div className='w-[100%] flex justify-center bg-gray-100 h-[100vh]'>
                 <div className=' flex-col justify-center  w-[50%]    '>
                     <div className='  flex justify-center items-center py-6'>
                         <div className='flex justify-center'>
-                            <button onClick={() => setVisible(true)}><img alt='avatar' className='w-36 h-36 rounded-full ' src={profileImage} /></button>
+                            <button onClick={() => setVisible(true)}><img alt='avatar' className='w-36 h-36 rounded-full  border-2' src={profileImage} /></button>
                             <div className='flex flex-col ml-16  justify-center '>
                                 <div className='flex ' >
                                     <h1 className='text-2xl'>{userName}</h1>

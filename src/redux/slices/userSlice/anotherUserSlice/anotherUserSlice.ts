@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 import { IUserState } from "../../../../interfaces/interfaces";
 
 
@@ -7,6 +6,7 @@ interface InitialStateI  {
     user: IUserState,
     error: any,
     status: null | string,
+  
 }
 
 const initialState: InitialStateI = {
@@ -27,11 +27,12 @@ const initialState: InitialStateI = {
         savedPosts: [],
         password: ''
     },
+    
 }
 
 
 
-const userSlice = createSlice({
+const anotherUserSlice = createSlice({
     name: 'anotherUser',
     initialState,
     reducers: {
@@ -41,9 +42,7 @@ const userSlice = createSlice({
         removeAnotherUser(state) {
             state = initialState
         },
-        uploadPhoto(state,action){
-            state.user.profileImage = action.payload
-        }
+        
     },
     extraReducers: (builder) => {
         
@@ -53,6 +52,6 @@ const userSlice = createSlice({
 });
 
 
-export const { setAnotherUser, removeAnotherUser,uploadPhoto } = userSlice.actions;
+export const { setAnotherUser, removeAnotherUser } = anotherUserSlice.actions;
 
-export default userSlice.reducer
+export default anotherUserSlice.reducer

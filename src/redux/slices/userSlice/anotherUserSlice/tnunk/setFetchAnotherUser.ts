@@ -5,12 +5,13 @@ import { setAnotherUser } from "../anotherUserSlice";
 import {IUserState} from "../../../../../interfaces/interfaces";
 
 
-export const fetchUser = createAsyncThunk('user/fetchUser',async (uid: string, { dispatch })=>{
+export const fetchAnotherUser = createAsyncThunk('user/fetchAntotherUser',async (uid: string, { dispatch })=>{
     const docUser = await getDoc(doc(db, "users", uid))
 
     const userToFetch  = docUser.data()
+    console.log(userToFetch)
 
     if (userToFetch) {
-        dispatch(setAnotherUser(userToFetch as IUserState))
+        dispatch(setAnotherUser(userToFetch as IUserState)) 
     }
 })

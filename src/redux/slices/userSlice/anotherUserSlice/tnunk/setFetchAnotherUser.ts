@@ -9,7 +9,7 @@ export const fetchAnotherUser = createAsyncThunk('user/fetchAntotherUser',async 
     const docUser = await getDoc(doc(db, "users", uid))
 
     const userToFetch  = docUser.data()
-    console.log(userToFetch)
+    // console.log(userToFetch)
 
     if (userToFetch) {
         dispatch(setAnotherUser(userToFetch as IUserState)) 

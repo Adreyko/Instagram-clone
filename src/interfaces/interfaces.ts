@@ -11,12 +11,12 @@ export interface ISignUp {
 
 export interface IUserState extends ISignUp{
     dateCreated: number,
-    following: {userId: string}[],
-    followers: {userId: string}[],
-    uid: string,
+    following: {uid: string}[],
+    followers: {uid: string}[],
+    uid: string ,
     birthdate: string[],
     phoneNumber: string,
     profileImage: string,
-    posts: string[],
+    posts: any[],
     savedPosts: string[]
 }

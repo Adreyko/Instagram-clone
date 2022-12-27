@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 
 import { useAuth } from '../../redux/hooks/use-auth'
+import { getAuth } from 'firebase/auth'
 import PagesRoutes from '../../constants/router-types'
 
 import Header from '../../components/Header/Header'
@@ -13,9 +14,10 @@ import { Navigate, } from 'react-router-dom'
 const MainPage =  () => {
   
   const { isAuth } = useAuth()
+  const auth = getAuth()
 
 
-  return isAuth ? (
+  return auth ? (
 
     <div className='flex justify-round bg-gray-100 '>
       <Header />

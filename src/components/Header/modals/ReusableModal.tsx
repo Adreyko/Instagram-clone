@@ -4,7 +4,8 @@ import { Dispatch, SetStateAction } from "react";
 interface IProps {
     visible: boolean;
     setVisible: (value: boolean | ((prevVisible: boolean) => boolean)) => void;
-    children: React.ReactNode
+    children: React.ReactNode,
+  
     
   }
 

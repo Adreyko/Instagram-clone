@@ -8,6 +8,9 @@ module.exports = {
       fontFamily: {
         pacifico:"'Pacifico', cursive"
       },
+      screens:{
+        vsm:'640px'
+      }
     },
   },
   plugins: [],

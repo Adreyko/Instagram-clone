@@ -9,12 +9,12 @@ import { storage } from '../../../../../firebase/firebase';
 import { ref, uploadBytes, deleteObject, getDownloadURL } from 'firebase/storage';
 
 
-type ImageThunkType = {
+type ImageType = {
     image: File,
     
 }
 
-export const uploadProfileImage = createAsyncThunk('user/uploadProfileImage', async ({ image}: ImageThunkType, { dispatch, getState }) => {
+export const uploadProfileImage = createAsyncThunk('user/uploadProfileImage', async ({ image}: ImageType, { dispatch, getState }) => {
     const userData = (getState() as RootState).user.user
     
 

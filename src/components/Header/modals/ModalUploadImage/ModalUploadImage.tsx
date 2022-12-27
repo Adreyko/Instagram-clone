@@ -1,11 +1,7 @@
 import React from 'react'
-
 import { useAppSelector, useAppDispatch } from '../../../../redux/hooks/redux-hooks';
-import { setUser } from '../../../../redux/slices/userSlice/userSlice/userSlice';
-import { RootState } from '../../../../redux/store/store';
-import { uploadPhoto } from '../../../../redux/slices/userSlice/userSlice/userSlice';
 import { uploadProfileImage } from '../../../../redux/slices/userSlice/userSlice/thunk/uploadProfileImage';
-import { nanoid } from 'nanoid';
+
 interface IProps {
 
   setVisible: (value: boolean | ((prevVisible: boolean) => boolean)) => void;

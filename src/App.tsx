@@ -10,7 +10,7 @@ import NotFound from './pages/NotFound/NotFound'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAppDispatch, useAppSelector } from './redux/hooks/redux-hooks'
 import { fetchUser } from './redux/slices/userSlice/userSlice/thunk/setFetchUser'
-import PostModal from './pages/Profile/Modals/PostModal/PostModal'
+import PostModal from './pages/Profile/Posts/PostModal/PostModal'
 import { useLocation } from 'react-router-dom'
 import Profile from './pages/Profile/Profile'
 import FollowersModal from './pages/Profile/Modals/FollowersModal/FollowersModal'
@@ -44,7 +44,7 @@ const App = () => {
         <Route path={PagesRoutes.SIGN_IN} element={<Login />} />
         <Route path={PagesRoutes.SIGN_UP} element={<Registration />} />
         <Route path={PagesRoutes.MAIN} element={<MainPage />}>
-          <Route path={`/p/:postId`} element={<PostModal />} />
+          <Route path={`/:uid/:postId`} element={<PostModal />} />
           <Route path={`/:uid/followers/`} element={<FollowersModal/>} />
           <Route path={`/:uid/following/`} element={<FollowingModal/>} />
         </Route>
@@ -53,7 +53,7 @@ const App = () => {
         <Route path='*' element={<NotFound />} />
       </Routes> 
       {background && <Routes>
-        <Route path={`/p/:postId`} element={<PostModal />} />
+        <Route path={`/:uid/:postId`} element={<PostModal />} />
         <Route path={`/:uid/followers/`} element={<FollowersModal/>} />
         <Route path={`/:uid/following/`} element={<FollowingModal/>} />
       </Routes>}

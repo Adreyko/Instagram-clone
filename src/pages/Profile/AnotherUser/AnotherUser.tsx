@@ -4,16 +4,16 @@ import { useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux-hooks'
 import { setAnotherUser } from '../../../redux/slices/userSlice/anotherUserSlice/anotherUserSlice'
 import { fetchAnotherUser } from '../../../redux/slices/userSlice/anotherUserSlice/tnunk/setFetchAnotherUser'
-// import { addToFollowing } from '../../../redux/slices/userSlice/userSlice/thunk/addToFollowing'
+
 import useFollow from '../../../redux/hooks/useFollow'
 import ReusableModal from '../../../components/Header/modals/ReusableModal'
 import ModalFollowing from '../SignedUserProfile/Modals/ModaUnFollow/ModalUnFollow'
 import PagesRoutes from '../../../constants/router-types'
 import { Link } from 'react-router-dom'
-
 import { useLocation } from 'react-router-dom'
 import Profile from '../SignedUserProfile/SignedUser'
-import AnotherPosts from './AnotherPosts'
+import { Posts } from '../Posts/Posts'
+
 
 
 
@@ -38,9 +38,6 @@ const AnotherUser: React.FC = () => {
     const [visible, setVisible] = useState(false)
 
 
-    const postElement = posts.map(el => (
-        <AnotherPosts postImage={el.postImage} user={el.user} postId={el.postId} likes={el.likes} comments={el.comments} />
-    ))
 
     const showModal = (event: React.MouseEvent<HTMLButtonElement>,) => {
         event.preventDefault()
@@ -100,15 +97,7 @@ const AnotherUser: React.FC = () => {
                         <button className='mr-10 mt-2 text-[15px] flex items-center'><i className="ri-grid-line mr-1"></i>POSTS</button>
                         <button className='ml-10 mt-2 text-[15px] flex items-center'><i className="ri-price-tag-3-line mr-1"></i>TAGGED</button>
                     </div>
-                    {posts.length > 0 ?
-                        <div className=' grid grid-cols-3 gap-7  mt-2 '>
-                            {postElement}
-                        </div>
-                        :
-                        <div className='flex flex-col items-center mt-16'>
-                            <img alt='p' className='w-16 border-4 border-black rounded-full' src='/images/inst.png' />
-                            <h1 className='mt-8 text-2xl'>No Posts Yet</h1>
-                        </div>}
+                    <Posts/>
 
                 </div>
                 :
@@ -156,15 +145,7 @@ const AnotherUser: React.FC = () => {
                             <button className='mr-10 mt-2 text-[15px] flex items-center'><i className="ri-grid-line mr-1"></i>POSTS</button>
                             <button className='ml-10 mt-2 text-[15px] flex items-center'><i className="ri-price-tag-3-line mr-1"></i>TAGGED</button>
                         </div>
-                        {posts.length > 0 ?
-                            <div className=' grid grid-cols-3 gap-7  mt-2 '>
-                                {postElement}
-                            </div>
-                            :
-                            <div className='flex flex-col items-center mt-16'>
-                                <img alt='p' className='w-16 border-4 border-black rounded-full' src='/images/inst.png' />
-                                <h1 className='mt-8 text-2xl'>No Posts Yet</h1>
-                            </div>}
+                       <Posts/>
                     </div>
                 
             }

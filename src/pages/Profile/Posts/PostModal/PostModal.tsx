@@ -1,58 +1,61 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from '../../../../redux/hooks/redux-hooks';
-import { getAuth } from 'firebase/auth';
-import { onAuthStateChanged } from 'firebase/auth';
-import { useAppDispatch } from '../../../../redux/hooks/redux-hooks';
-import { fetchUser } from '../../../../redux/slices/userSlice/userSlice/thunk/setFetchUser';
-import AnotherPostModal from '../../AnotherUser/Modals/AnotherPostModa/AnotherPostModal';
-import { addComment } from '../../../../redux/slices/userSlice/userSlice/thunk/AddComment';
+
+import { db } from '../../../../firebase/firebase'
+import { doc } from 'firebase/firestore'
+import { async } from '@firebase/util'
+import { getDoc } from 'firebase/firestore'
+import { collection, getDocs } from "firebase/firestore";
+import { useNavigate } from 'react-router-dom'
+import { fetchUser } from '../../../../redux/slices/userSlice/userSlice/thunk/setFetchUser'
+import { addComment } from '../../../../redux/slices/userSlice/userSlice/thunk/AddComment'
+import { useAppDispatch } from '../../../../redux/hooks/redux-hooks'
+import { Comments } from './Comments'
+
+
 
 const PostModal = () => {
-    const auth = getAuth()
-    const dispatch = useAppDispatch()
+    const { postId, uid } = useParams()
+    const [post, setPost] = useState<any>()
     const navigate = useNavigate()
-    const { postId } = useParams()
-    const [visible, setVisible] = useState(true)
-    const signedUser = useAppSelector(user => user.user.user)
-    const anotherUser = useAppSelector(user => user.anotherUser.user)
-    const post = signedUser.posts.find(el => el.postId === postId)
-    const anotherPost = anotherUser.posts.find(el => el.post === postId)
+    const dispatch = useAppDispatch()
     const [text, setText] = useState<string>('')
-
-
-
+    const [user, setUser] = useState<any>()
 
     const textAreaHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 
         setText(event.currentTarget.value)
+       
     }
-
-
-
 
     const addNewComment = async () => {
-        dispatch(await addComment({ text: text, postId: postId as string ,userId : signedUser.uid}))
+        dispatch(await addComment({ text: text, postId: postId as string, userId: uid as string }))
+        setText('')
 
     }
 
-    // const commentEl = post.commets.map((comment: { text: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }) =>(
-    //     <div className='flex'><div className='flex '>
-    //     <img className='w-10 h-10 rounded-full mr-4 ' src={signedUser.profileImage} alt="" />
+    useEffect(() => {
 
-    //     <h1 className='ml-2'>{post.text}</h1>
-    // </div></div>
-    // ))
+        const fetchData = async () => {
+            const docRef = doc(db, "users", uid as string)
+            const docSnap = await getDoc(docRef);
+            setUser(docSnap.data())
+
+            setPost(docSnap.data()?.posts.find((post: { postId: string | undefined }) => post.postId == postId))
+
+        }
+        fetchData()
+    }, [addNewComment])
+    
+
+    const commentsEl = post?.commets.map((comment: { text: any,userId: any })=>(
+        <Comments text = {comment.text} userId = {comment.userId}/>
+    ))
 
 
 
-
-
-
-    return post ? (
+    return (
         post?.postId && (
-
 
             <div className='fixed inset-0 z-10   bg-opacity-30 backdrop-blur-sm flex justify-center items-center bg-gray-500 ' onClick={() => navigate(-1)} >
                 <div onClick={e => e.stopPropagation()} className='  rounded shadow-sm z-20 '>
@@ -62,36 +65,33 @@ const PostModal = () => {
                             <div>
                                 <div className='bg-white flex justify-between px-4 h-[75px] border-b-[1px] items-center '>
                                     <div className='flex w-[400px] items-center '>
-                                        <img className='w-10 h-10 rounded-full mr-4' src={signedUser.profileImage} alt="" />
-                                        <h1 className=''>{signedUser.userName}</h1>
+                                        <img className='w-10 h-10 rounded-full mr-4' src={user.profileImage} alt="" />
+                                        <h1 className=''>{user.userName}</h1>
                                     </div>
                                     <div>
                                         <h1>...</h1>
                                     </div>
                                 </div>
-                                <div className='h-[500px] p-4 '>
+                                <div className='h-[500px] p-4 overflow-auto'>
 
                                     {
-                                        post.text !== '' || post.commet !== '' ?
-                                            <div>
-                                                <div className='flex '>
-                                                    <img className='w-10 h-10 rounded-full mr-4 ' src={signedUser.profileImage} alt="" />
-                                                    <h1 className='font-medium text-[13px]'>{signedUser.userName}</h1>
-                                                    <h1 className='ml-2'>{post.text}</h1>
-                                                </div>
+                                        post.commets !== '' ?
                                                 <div>
-
-                                                </div>
+                                            <div className='flex  '>
+                                                <img className='w-10 h-10 rounded-full mr-4 ' src={user.profileImage} alt="" />
+                                                <h1 className='font-medium text-[13px]'>{user.userName}</h1>
+                                                <h1 className='ml-2'>{post.text}</h1>
+                                                
                                             </div>
-
-                                            :
+                                            <div className=' flex-block overflow-hidden'>
+                                                {commentsEl}
+                                            </div>
+                                            </div> :
                                             <div className='flex flex-col items-center justify-center py-44'>
                                                 <h1 className='font-bold text-xl'>No comments yet.</h1>
                                                 <p className='text-[15px]'>Start the conversation.</p>
                                             </div>
                                     }
-
-
 
                                 </div>
                                 <div className='flex '>
@@ -110,18 +110,14 @@ const PostModal = () => {
                                 </div>
                                 {text !== '' ? <button onClick={() => addNewComment()}>Post</button> : ''}
 
-                                
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         )
-
-
     )
-        :
-        <AnotherPostModal />
 }
 
 export default PostModal

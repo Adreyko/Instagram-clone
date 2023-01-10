@@ -9,10 +9,10 @@ import ReusableModal from '../../../components/Header/modals/ReusableModal'
 import ModalUploadImage from './Modals/ModalUploadImage/ModalUploadImage'
 import { fetchUser } from '../../../redux/slices/userSlice/userSlice/thunk/setFetchUser'
 import { useAppDispatch } from '../../../redux/hooks/redux-hooks'
-import Posts from './UserPosts'
-import UserPosts from './UserPosts'
+
 import { useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
+import { Posts } from '../Posts/Posts'
 
 
 
@@ -27,10 +27,7 @@ const SignedUser = () => {
 
 
     const location = useLocation()
-    const userPostElemt = postsArr.map(el => (
-
-        <UserPosts postImage={el.postImage} user={el.user} postId={el.postId} likes={el.likes} comments={el.comments} />
-    ))
+  
 
     const { email, profileImage, userName, followers, posts, following, fullName } = useAppSelector(state => state.user.user)
 
@@ -81,22 +78,14 @@ const SignedUser = () => {
 
                 </div>
 
-                <div>s
+                <div>
                     
                     <div className='mt-12 border-t-2 flex justify-center'>
                         <button className='mr-10 mt-2 text-[15px] flex items-center'><i className="ri-grid-line mr-1"></i>POSTS</button>
                         <button className='mr-10 ml-10 mt-2 text-[15px] flex items-center'><i className="ri-bookmark-line  mr-1"></i>SAVED</button>
                         <button className='ml-10 mt-2 text-[15px] flex items-center'><i className="ri-price-tag-3-line mr-1"></i>TAGGED</button>
                     </div>
-                    {postsArr.length > 0 ?
-                        <div className=' grid grid-cols-3 gap-7  mt-2  '>
-                            {userPostElemt}
-                        </div>
-                        :
-                        <div className='flex flex-col items-center mt-16'>
-                            <img alt='p' className='w-16 border-4 border-black rounded-full' src='/images/inst.png' />
-                            <h1 className='mt-8 text-2xl'>No Posts Yet</h1>
-                        </div>}
+                  <Posts/>
 
                 </div>
             </div>

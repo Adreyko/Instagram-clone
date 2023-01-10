@@ -83,7 +83,7 @@ const PostModal = () => {
                                                 <h1 className='ml-2'>{post.text}</h1>
                                                 
                                             </div>
-                                            <div className=' flex-block overflow-hidden'>
+                                            <div className=' flex-block '>
                                                 {commentsEl}
                                             </div>
                                             </div> :

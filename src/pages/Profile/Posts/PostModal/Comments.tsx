@@ -28,7 +28,7 @@ export const Comments: React.FC<ParentStateItem> = ({ text, userId }) => {
         fetchData()
     }, [])
     return user &&  (
-        <div className='flex overflow-hidden '>
+        <div className='flex  '>
             <img className='w-4' src={user.profileImage} alt="" />
             <h1>{user.userName}</h1>
             <h1 className='ml-4'>{text}</h1>

@@ -1,6 +1,6 @@
 import React from 'react'
-import { useAppSelector } from '../../../../redux/hooks/redux-hooks'
-import useFollow from '../../../../redux/hooks/useFollow'
+import { useAppSelector } from '../../../../../redux/hooks/redux-hooks'
+import useFollow from '../../../../../redux/hooks/useFollow'
 import {  useParams } from 'react-router-dom'
 interface IProps {
 

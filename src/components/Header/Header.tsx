@@ -20,7 +20,7 @@ const Header = () => {
 
     return (
         <>
-            <div className=' sm:h-[100vh]  border-r-[1px] bg-white flex flex-col justify-between   pr-0 w-[100%] sm:w-[75px] xl:w-[20%] fixed'  >
+            <div className=' sm:h-[100vh]  border-r-[1px] bg-white flex flex-col justify-between    w-[100%] sm:w-[75px] xl:w-[20%] fixed'  >
                 <div className='flex sm:block fixed bottom-0 sm:static w-[100%] bg-gray-100 sm:bg-white border-t-[2px] sm:border-none pt-2 sm:p-0 justify-center' onClick={() => setShowSettings(false)} >
                     <div className='flex items-center p-4 py-8   active:opacity-25 '>
                         <Link to='/' className='font-pacifico text-2xl  '>
@@ -54,7 +54,7 @@ const Header = () => {
                         </Link>
                     </div>
                     <div className='mb-4 active:opacity-25  a'>
-                        <Link to={`${PagesRoutes.ANOTHER_USER}/${anotherUser.user.uid}`} className='flex items-center  w-[100%] sm:hover:bg-gray-100 rounded-2xl p-1 px-4'>
+                        <Link to={`/${anotherUser.user.uid}/`} className='flex items-center  w-[100%] sm:hover:bg-gray-100 rounded-2xl p-1 px-4'>
                             <i className=" b ri-message-3-line text-2xl mr-2"></i>
                             <h1 className='hidden xl:block'>Messages</h1>
                         </Link>
@@ -75,7 +75,7 @@ const Header = () => {
                             <NewPostModal setVisible={setVisible}/>
                     </ReusableModal>
                     <div className='mb-4 a active:opacity-25' >
-                        <Link to={`${PagesRoutes.PROFILE}/${signedUser.uid}`} className='flex items-center w-[100%] sm:hover:bg-gray-100 rounded-3xl p-1 px-4 '>
+                        <Link to={`/${signedUser.uid}/`} className='flex items-center w-[100%] sm:hover:bg-gray-100 rounded-3xl p-1 px-4 '>
                             <img
                                 alt='profileImg'
                                 src={profileImage}
@@ -88,7 +88,7 @@ const Header = () => {
                 </div>
                 {showSettings ? <DropDownSetting setShowSettings={setShowSettings} /> : ''}
 
-                <div className='a flex  justify-between active:opacity-25 hidden sm:block' onClick={() => setShowSettings(prev => !prev)}  >
+                <div className='a   justify-between active:opacity-25 hidden sm:block' onClick={() => setShowSettings(prev => !prev)}  >
                     <button className='flex items-center w-[100%] hover:bg-gray-100 rounded-3xl p-1 px-4 mb-4  '><i className="b ri-menu-line text-2xl mr-2 hidden sm:block"></i>
                         <h1 className='hidden xl:block'>More</h1>
                     </button>

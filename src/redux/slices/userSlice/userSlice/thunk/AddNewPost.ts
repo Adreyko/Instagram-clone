@@ -5,6 +5,7 @@ import { setUser } from '../userSlice';
 import { db } from '../../../../../firebase/firebase';
 import { storage } from '../../../../../firebase/firebase';
 import { ref, uploadBytes, deleteObject, getDownloadURL } from 'firebase/storage';
+import { useAppSelector } from '../../../../hooks/redux-hooks';
 
 type ImageType = {
     image: File,
@@ -16,6 +17,8 @@ type ImageType = {
 
 export const addNewPost = createAsyncThunk('user/addNewPost', async ({ image,text }: ImageType, { dispatch, getState }) => {
     const userData = (getState() as RootState).user.user
+
+    
 
     const imagesRef = ref(storage, `Images/${image.name + nanoid()}`)
     await uploadBytes(imagesRef, image)

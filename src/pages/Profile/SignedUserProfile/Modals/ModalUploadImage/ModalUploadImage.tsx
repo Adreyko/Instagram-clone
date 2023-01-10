@@ -1,6 +1,6 @@
 import React from 'react'
-import { useAppSelector, useAppDispatch } from '../../../../redux/hooks/redux-hooks';
-import { uploadProfileImage } from '../../../../redux/slices/userSlice/userSlice/thunk/uploadProfileImage';
+import { useAppSelector, useAppDispatch } from '../../../../../redux/hooks/redux-hooks';
+import { uploadProfileImage } from '../../../../../redux/slices/userSlice/userSlice/thunk/uploadProfileImage';
 
 interface IProps {
 
@@ -44,7 +44,7 @@ const ModalUploadImage = ({ setVisible }: IProps) => {
       <div className='border-b-[1px] cursor-pointer active:bg-gray-100'>
         <h1 className='p-2  font-bold text-red-400 cursor-pointer '>Remove Current Photo</h1>
       </div>
-      <div className='flex items-center justify-center  cursor-pointer active:bg-gray-100 ' onClick={() => setVisible(false)}>
+      <div className='flex items-center justify-center  cursor-pointer active:bg-gray-100 active:rounded-b-xl ' onClick={() => setVisible(false)}>
         <h1 className=' cursor-pointer py-3'>Cancel</h1>
       </div>
     </div>

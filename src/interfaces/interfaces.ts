@@ -11,8 +11,8 @@ export interface ISignUp {
 
 export interface IUserState extends ISignUp{
     dateCreated: number,
-    following: {uid: string}[],
-    followers: {uid: string}[],
+    following: any[],
+    followers: any[],
     uid: string ,
     birthdate: string[],
     phoneNumber: string,

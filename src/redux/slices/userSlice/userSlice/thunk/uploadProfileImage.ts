@@ -17,6 +17,7 @@ type ImageType = {
 export const uploadProfileImage = createAsyncThunk('user/uploadProfileImage', async ({ image}: ImageType, { dispatch, getState }) => {
     const userData = (getState() as RootState).user.user
     
+    console.log(1)
 
 
     if(userData.profileImage) {

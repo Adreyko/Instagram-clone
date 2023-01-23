@@ -58,7 +58,6 @@ const FormRegistration: React.FC = () => {
                 following: [],
                 followers: [],
                 dateCreated: new Date().getTime(),
-                birthdate: "",
                 phoneNumber: "",
                 profileImage: "",
                 posts: [],

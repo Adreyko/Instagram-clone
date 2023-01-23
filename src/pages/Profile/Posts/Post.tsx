@@ -24,13 +24,15 @@ export const Post: React.FC<ParentStateItem> = ({ postImage, postId, user }) => 
   const location = useLocation()
 
   return auth ? (
-    <div className=' bg-black'>
+    <div className=' bg-black flex items-center justify-center mt-9 w-[90%] m-auto '>
       <Link to={`/${user}/${postId}`} state={{ background: location }}>
-        <img
-          onClick={() => setVisible(true)}
-          className='  h-[200px] w-[300px] 2xl:h-[300px] object-cover hover:opacity-60 cursor-pointer'
-          src={postImage}
-          alt="post" />
+        <div className=' bg-black w-full sm:h-[250px] h-[100px] flex items-center justify-center '>
+          <img          
+            onClick={() => setVisible(true)}
+            className='hover:opacity-50 h-full w-full object-cover  '
+            src={postImage}
+            alt="post" />
+        </div>
       </Link>
 
 

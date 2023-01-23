@@ -14,11 +14,13 @@ export const Posts = () => {
     const signedUser = useAppSelector(user => user.user.user)
     const anotherUser = useAppSelector(user => user.anotherUser.user)
     const [post, setPost] = useState<any[]>()
-   
-    
+
+
     const postImage = post?.map(post => (
-        <Post postImage={post.postImage} postId = {post.postId} user = {post.user} />
+        <Post postImage={post.postImage} postId={post.postId} user={post.user} />
     ))
+
+
 
 
     useEffect(() => {
@@ -26,7 +28,7 @@ export const Posts = () => {
         const fetchData = async () => {
             const docRef = doc(db, "users", uid as string)
             const docSnap = await getDoc(docRef);
-           
+
             setPost(docSnap.data()?.posts)
 
         }
@@ -35,7 +37,7 @@ export const Posts = () => {
 
     return (
 
-        <div  className=' grid grid-cols-3 gap-7  mt-2  '> {postImage} </div>
+        <div className=' grid grid-cols-3 gap-6  mt-2  '> {postImage?.reverse()} </div>
     )
 
 

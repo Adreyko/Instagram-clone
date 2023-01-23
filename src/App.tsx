@@ -3,7 +3,7 @@ import Login from './pages/Login/Login'
 import { Routes, Route, Link, useParams } from 'react-router-dom'
 import Registration from './pages/Registration/Registration'
 import PagesRoutes from './constants/router-types'
-import MainPage from './pages/MainPage/MainPage'
+import MainPage from './pages/Dashboard/Dashboard'
 
 import AnotherUser from './pages/Profile/AnotherUser/AnotherUser'
 import NotFound from './pages/NotFound/NotFound'
@@ -15,6 +15,7 @@ import { useLocation } from 'react-router-dom'
 import Profile from './pages/Profile/Profile'
 import FollowersModal from './pages/Profile/Modals/FollowersModal/FollowersModal'
 import FollowingModal from './pages/Profile/Modals/FollowingModal/FollowingModal'
+import Explore from './pages/Explore/Explore'
 
 
 const App = () => {
@@ -39,7 +40,7 @@ const App = () => {
   return (
 
 
-    <div>
+    <div className=''>
       <Routes location={background || location}>
         <Route path={PagesRoutes.SIGN_IN} element={<Login />} />
         <Route path={PagesRoutes.SIGN_UP} element={<Registration />} />
@@ -48,6 +49,7 @@ const App = () => {
           <Route path={`/:uid/followers/`} element={<FollowersModal/>} />
           <Route path={`/:uid/following/`} element={<FollowingModal/>} />
         </Route>
+        <Route path={'/explore/'} element={<Explore/>}/>
         <Route path={`/:uid/`} element={<Profile />} />
         <Route path={`/:uid/`} element={<AnotherUser />} />
         <Route path='*' element={<NotFound />} />

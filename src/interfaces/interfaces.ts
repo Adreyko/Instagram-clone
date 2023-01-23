@@ -14,7 +14,6 @@ export interface IUserState extends ISignUp{
     following: any[],
     followers: any[],
     uid: string ,
-    birthdate: string[],
     phoneNumber: string,
     profileImage: string,
     posts: any[],

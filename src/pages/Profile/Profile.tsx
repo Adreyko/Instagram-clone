@@ -6,31 +6,52 @@ import { useAppSelector } from '../../redux/hooks/redux-hooks'
 import NotFound from '../NotFound/NotFound'
 import { useAppDispatch } from '../../redux/hooks/redux-hooks'
 import { fetchAnotherUser } from '../../redux/slices/userSlice/anotherUserSlice/tnunk/setFetchAnotherUser'
+import Header from '../../components/Header/Header'
+import { auth } from '../../firebase/firebase'
 
 
 const Profile = () => {
-    const {uid } = useParams()
-    const signedUser = useAppSelector(user=> user.user.user)
-    const anotherUser = useAppSelector(user=>user.anotherUser.user)
-    const dispatch = useAppDispatch()
-    
+  const { uid } = useParams()
+  const signedUser = useAppSelector(user => user.user.user)
+  const anotherUser = useAppSelector(user => user.anotherUser.user)
+  const dispatch = useAppDispatch()
 
-    useEffect(() => {
-      if(signedUser.uid !== uid){
-          dispatch(fetchAnotherUser(uid as string))
-      }
-      
+
+  useEffect(() => {
+    if (signedUser.uid !== uid) {
+      dispatch(fetchAnotherUser(uid as string))
+    }
+    // w-[80%]
   }, [uid])
+
+
+ 
   return signedUser.uid === uid ? (
-    <SignedUser/>
+    <div className='bg-gray-50  flex justify-between'>
+      <div className='bg-gray-50 h-[100vh]'>
+        <Header />
+      </div>
+      <SignedUser />
+
+    </div>
+
   )
-  :
-  (
-    <>
-      { anotherUser.uid === uid ? <AnotherUser/> : <NotFound/>  }  
-    </>
-    
-  )
+    :
+    (
+      <>
+        {
+          anotherUser.uid === uid ?
+            <div className='bg-gray-50  flex justify-between'>
+              <div >
+                <Header />
+              </div>
+              <AnotherUser />
+            </div>
+            :
+            <NotFound />}
+      </>
+
+    )
 }
 
 export default Profile

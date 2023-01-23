@@ -29,6 +29,8 @@ const FormLogin: React.FC = () => {
         try {
             const user = await signInWithEmailAndPassword(auth, email, password)  
             await dispatch(fetchUser(user.user.uid))
+            console.log(user)
+            navigate(PagesRoutes.MAIN)
         }
         catch (error: any) {
             setEmail('');
@@ -36,7 +38,7 @@ const FormLogin: React.FC = () => {
             setError(error.message);
             console.log(error);
         }
-        navigate(PagesRoutes.MAIN)
+       
 
     }
 
@@ -49,7 +51,7 @@ const FormLogin: React.FC = () => {
                         <div className=' '>
                             <h1 className='font-pacifico text-4xl mt-4 mb-8 flex justify-center items-center'>Instagram</h1>
                         </div>
-                        <div className='flex justify-center items   -center '>
+                        <div className='flex justify-center items-center '>
                             <input
                                 placeholder='Email address'
                                 type="email"

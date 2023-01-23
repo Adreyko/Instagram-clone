@@ -1,9 +1,9 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "./redux-hooks";
-import { setUser } from "../slices/userSlice/userSlice/userSlice";
-import { setAnotherUser } from "../slices/userSlice/anotherUserSlice/anotherUserSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks/redux-hooks";
+import { setUser } from "../../../redux/slices/userSlice/userSlice/userSlice";
+import { setAnotherUser } from "../../../redux/slices/userSlice/anotherUserSlice/anotherUserSlice";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import { db } from "../../../firebase/firebase";
 import { uptime } from "process";
 
 

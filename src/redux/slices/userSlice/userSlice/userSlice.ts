@@ -21,7 +21,6 @@ const initialState: InitialStateI = {
         following: [],
         followers: [],
         dateCreated: 0,
-        birthdate: [],
         phoneNumber: '',
         profileImage: '',
         posts: [],

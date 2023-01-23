@@ -6,8 +6,9 @@ import { db } from '../../../../../firebase/firebase';
 import { storage } from '../../../../../firebase/firebase';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hooks';
 import { setAnotherUser } from '../../anotherUserSlice/anotherUserSlice';
+import SignedUser from '../../../../../pages/Profile/SignedUserProfile/SignedUser';
 
-type TextType = {
+type CommentType = {
 
     text: string
     postId: string
@@ -17,7 +18,8 @@ type TextType = {
 
 
 
-export const addComment = createAsyncThunk('user/addComment', async ({ text, postId, userId }: TextType, { dispatch, getState }) => {
+export const addComment = createAsyncThunk('user/addComment', async ({ text, postId, userId }: CommentType, { dispatch, getState }) => {
+    
     const userData = (getState() as RootState).user.user
     const anotherUser = (getState() as RootState).anotherUser.user
 
@@ -64,7 +66,7 @@ export const addComment = createAsyncThunk('user/addComment', async ({ text, pos
 
 
 
-    await updateDoc(doc(db, 'users', userId), {
+    await updateDoc(docRef, {
         posts: newPostsArr
     })
 

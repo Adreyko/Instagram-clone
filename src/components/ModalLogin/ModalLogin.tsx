@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import PagesRoutes from '../../../../constants/router-types'
+import PagesRoutes from '../../constants/router-types'
 
 const ModalLogin = () => {
   return (

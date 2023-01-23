@@ -1,22 +1,23 @@
 import React from 'react'
 import { useAppSelector } from '../../../../../redux/hooks/redux-hooks'
-import useFollow from '../../../../../redux/hooks/useFollow'
-import {  useParams } from 'react-router-dom'
+import useFollow from '../../../hooks/useFollow'
+import { useParams } from 'react-router-dom'
 interface IProps {
 
     setVisible: (value: boolean | ((prevVisible: boolean) => boolean)) => void;
-  
-  
-  }
+    uid: string;
+    profileImage : string;
+
+}
 
 
 
-const ModalFollowing = ({setVisible} : IProps) => {
-    const { uid } = useParams()
+const ModalFollowing = ({ setVisible, uid ,profileImage}: IProps) => {
+
     const { unFollowPerson } = useFollow()
     const anotherUser = useAppSelector(user => user.anotherUser.user)
 
-    const unFollowActived = () =>{
+    const unFollowActived = () => {
         setVisible(false)
         unFollowPerson(uid as string)
     }
@@ -24,7 +25,7 @@ const ModalFollowing = ({setVisible} : IProps) => {
     return (
         <div className='  flex-col items-center text-center rounded-xl bg-white   '>
             <div className=' border-b-2 py-4 px-32'>
-                <img className='w-20 rounded-full h-20' src={anotherUser.profileImage} alt="pic" />
+                <img className='w-20 rounded-full h-20' src={profileImage} alt="pic" />
             </div>
             <div className='flex justify-start px-4 py-4'>
                 <h1>Add to close friend</h1>

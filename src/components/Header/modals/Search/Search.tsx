@@ -62,7 +62,7 @@ const Search = ({modalWidth,setModalWidth } : IProps) => {
     <SearchedUser uid={user.uid} userName={user.userName} fullName={user.fullName} profileImage={user.profileImage} />
   ))
 
-console.log(modalWidth)
+
  
   return (
 

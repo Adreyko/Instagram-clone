@@ -28,9 +28,7 @@ const ReusableHeadersNav = ({ show, setShow, children,modalWidth,setModalWidth }
     },[show])
        
 
-      
-    console.log(show)
-        
+
     
  
 

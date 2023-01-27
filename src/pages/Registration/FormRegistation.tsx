@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { doc, setDoc } from "firebase/firestore";
 import { db } from '../../firebase/firebase';
 import { fetchUser } from '../../redux/slices/userSlice/userSlice/thunk/setFetchUser'
+import SignedUser from '../Profile/SignedUserProfile/SignedUser';
 
 
 
@@ -66,7 +67,8 @@ const FormRegistration: React.FC = () => {
 
             await setDoc(doc(db, "users", user.user.uid), docUser)
             dispatch(setUser(docUser))
-            
+            await setDoc(doc(db,'chats',user.user.uid),{})
+           
         }
         catch (error: any) {
             setEmail('');

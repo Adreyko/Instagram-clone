@@ -134,7 +134,7 @@ const NewPostModal = ({ setVisible }: IProps) => {
                             </div>
 
                             <div className='flex justify-between p-2 text-[13px]'>
-                                <button onClick={() => setShowPicker(prev => !prev)}>	&#128515;</button>
+                                <button onClick={() => setShowPicker(prev => !prev)}>&#128515;</button>
                                 <h1 className='text-gray-400' >{text.length}/2,200</h1>
                             </div>
                             <div className='w-[50%]'>

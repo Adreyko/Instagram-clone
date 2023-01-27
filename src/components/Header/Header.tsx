@@ -95,8 +95,8 @@ const Header = () => {
                         </Link>
                     </div>
                     <div className='mb-4 active:opacity-25 px-2  a'>
-                        <Link to={`/${anotherUser.user.uid}/`} className='flex items-center  w-[100%] sm:hover:bg-gray-100 rounded-2xl p-1 px-2'>
-                            <i className=" b ri-message-3-line text-2xl  "></i>
+                        <Link to={`/direct  `} className='flex items-center  w-[100%] sm:hover:bg-gray-100 rounded-2xl p-1 px-2'>
+                            {window.location.pathname === '/direct' ? <i className="ri-chat-smile-2-fill text-2xl b"></i> : <i className=" b ri-chat-smile-2-line text-2xl  "></i>}
                             <h1 className='px-2'>Messages</h1>
                         </Link>
                     </div>

@@ -16,6 +16,7 @@ import Profile from './pages/Profile/Profile'
 import FollowersModal from './pages/Profile/Modals/FollowersModal/FollowersModal'
 import FollowingModal from './pages/Profile/Modals/FollowingModal/FollowingModal'
 import Explore from './pages/Explore/Explore'
+import Messages from './pages/Direct/Direct'
 
 
 const App = () => {
@@ -44,22 +45,23 @@ const App = () => {
       <Routes location={background || location}>
         <Route path={PagesRoutes.SIGN_IN} element={<Login />} />
         <Route path={PagesRoutes.SIGN_UP} element={<Registration />} />
+        <Route path="/direct" element={<Messages />} />
         <Route path={PagesRoutes.MAIN} element={<MainPage />}>
           <Route path={`/:uid/:postId`} element={<PostModal />} />
-          <Route path={`/:uid/followers/`} element={<FollowersModal/>} />
-          <Route path={`/:uid/following/`} element={<FollowingModal/>} />
+          <Route path={`/:uid/followers/`} element={<FollowersModal />} />
+          <Route path={`/:uid/following/`} element={<FollowingModal />} />
         </Route>
-        <Route path={'/explore/'} element={<Explore/>}/>
+        <Route path={'/explore/'} element={<Explore />} />
         <Route path={`/:uid/`} element={<Profile />} />
         <Route path={`/:uid/`} element={<AnotherUser />} />
         <Route path='*' element={<NotFound />} />
-      </Routes> 
+      </Routes>
       {background && <Routes>
         <Route path={`/:uid/:postId`} element={<PostModal />} />
-        <Route path={`/:uid/followers/`} element={<FollowersModal/>} />
-        <Route path={`/:uid/following/`} element={<FollowingModal/>} />
+        <Route path={`/:uid/followers/`} element={<FollowersModal />} />
+        <Route path={`/:uid/following/`} element={<FollowingModal />} />
       </Routes>}
- 
+
     </div>
   )
 }

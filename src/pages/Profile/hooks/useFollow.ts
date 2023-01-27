@@ -24,9 +24,9 @@ const useFollow = () => {
 
     const followPerson = async ({ userName, fullName, profileImage, uid }: userToFollow) => {
 
-
+console.log(uid)
         const anotherUserIsFollowing = signedUser.following.find(user => user.uid === uid)
-
+            
 
         if (anotherUser.uid === uid) {
             if (!anotherUserIsFollowing) {

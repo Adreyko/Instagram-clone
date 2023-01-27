@@ -4,6 +4,7 @@ import { db } from '../../../firebase/firebase'
 
 import { Link } from 'react-router-dom';
 import RecPeople from './RecPeople';
+import { useAppSelector } from '../../../redux/hooks/redux-hooks';
 interface ParentStateItem {
 
     fullName: string;
@@ -19,7 +20,7 @@ interface ParentState {
 
 const Recommend = () => {
     const [allUsers, setAllUsers] = useState<any>()
-
+    const signedUser = useAppSelector(user => user.user.user)
 
 
 
@@ -32,25 +33,29 @@ const Recommend = () => {
         })
     }
     let initialized = false;
+
+
     useEffect(() => {
         if (!initialized) {
             initialized = true
             fetchData()
         }
     }, [])
+    const recommendUsers = allUsers?.filter((user: { uid: string; }) => (user.uid !== signedUser.uid))
 
 
-    const peopleEl = allUsers?.map((user: any) => (
+
+    const peopleEl = recommendUsers?.map((user: any) => (
         <RecPeople fullName={user.fullName} uid={user.uid} userName={user.userName} profileImage={user.profileImage} />
     ))
 
-    console.log(allUsers)
+
     return (
         <div className='flex flex-col p-2 mt-'>
             <div className=''>
                 <h1 className='font-bold' >Suggestions For You</h1>
             </div>
-            <div className='border-[1px] mt-2 w-[100%]'>
+            <div className='border-[1px] mt-2 w-[100%] flex flex-col '>
                 {peopleEl}
             </div>
         </div>

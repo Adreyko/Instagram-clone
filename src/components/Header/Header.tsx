@@ -1,21 +1,25 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState,memo } from 'react'
 import 'remixicon/fonts/remixicon.css'
 import { Link } from 'react-router-dom'
-import PagesRoutes from '../../constants/router-types'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux-hooks'
-import DropDownSetting from './modalSettings/DropDownSetting'
+import { useAppSelector } from '../../redux/hooks/redux-hooks'
+import DropDownSetting from './modals/DropSettings/DropSetting'
 import '../../App.css';
 import ReusableModal from './modals/ReusableModal'
 import NewPostModal from './modals/CreateNewPostModal/CreateNewPostModal'
 import Search from './modals/Search/Search'
-
+import { useLocation } from 'react-router-dom'
 import Notifications from './modals/Notifications/Notifications'
 import ReusableHeadersNav from './modals/ReusableHeadersNav'
-const Header = () => {
+import LoadingBar from 'react-top-loading-bar'
 
-    const { profileImage, uid, } = useAppSelector(user => user.user.user)
-    const anotherUser = useAppSelector(user => user.anotherUser)
+
+
+const Header = memo(() => {
+
+    const { profileImage } = useAppSelector(user => user.user.user)
     const signedUser = useAppSelector(user => user.user.user)
+
+
 
     const [showSearch, setShowSearch] = useState(false)
     const [showSettings, setShowSettings] = useState(false)
@@ -23,17 +27,31 @@ const Header = () => {
     const [showNotifications, setShowNotifications] = useState(false)
     const [width, setWidth] = useState(20)
     const [modalWidth, setModalWidth] = useState(0)
+    const [progress, setProgress] = useState(100)
+
+    const location = useLocation()
+
+
 
     const showSearchControl = () => {
         setShowSearch(prev => !prev)
         setShowNotifications(false)
-
     }
 
-    
+
+
     const showNotificationsControl = () => {
         setShowNotifications(prev => !prev)
         setShowSearch(false)
+    }
+
+
+
+    const showCreatePostModal = () => {
+        setVisible(true)
+        setShowNotifications(false)
+        setShowSearch(false)
+
     }
 
 
@@ -42,34 +60,44 @@ const Header = () => {
         if (!showSearch && !showNotifications) {
             setModalWidth(0)
         }
-    },[showSearch,showNotifications])
+    }, [showSearch, showNotifications])
 
 
-   const style = {
-    transition: "width 0.8s 0s"
-}
 
- 
+    const style = {
+        transition: "width 0.8s 0s"
+    }
+
+
 
     useEffect(() => {
         showSearch || showNotifications ? setWidth(5) : setWidth(20)
     }, [showSearch, showNotifications])
 
+
+
     return (
         <div className='flex '>
+            <LoadingBar
+                color='#FF8000'
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+                waitingTime={0}
+                height={3} />
+
             <div style={style} className={`sm:h-[100vh]  border-r-[1px] bg-white flex flex-col justify-between     sm:w-[75px] xl:w-[${width}%] 
             fixed  ${width === 5 ? `text-[${0}px]` : 'text-[0px] xl:text-base'}  `}  >
                 <div className='flex sm:block fixed bottom-0 sm:static w-[100%] bg-gray-100 sm:bg-white border-t-[2px] sm:border-none pt-2 sm:p-2 justify-center' onClick={() => setShowSettings(false)} >
                     <div className='flex items-center p-4 py-8   active:opacity-25 '>
                         <Link to='/' className='font-pacifico   '>
-                            <i  className={`ri-instagram-line  text-2xl ${width === 5 ? 'hidden sm:block ' : 'sm:block hidden xl:hidden'} `}></i>
+                            <i className={`ri-instagram-line  text-2xl ${width === 5 ? 'hidden sm:block ' : 'sm:block hidden xl:hidden'} `}></i>
                             <h1 className={` text-2xl ${width === 5 ? 'hidden  ' : 'hidden xl:block'} `}>Instagram</h1>
 
                         </Link>
                     </div>
                     <div className='a mb-4  active:opacity-25 px-2 '>
                         <Link to='/' className='  flex items-center  sm:w-[100%]  sm:hover:bg-gray-100 active:bg-gray-50 rounded-3xl p-1 px-2'>
-                            {window.location.pathname === '/' ? <i className="b ri-home-4-fill  mr-2 flex text-2xl "></i> : <i className="b ri-home-4-line text-2xl mr-2 flex"></i>}
+                            {!showSearch && !showNotifications && location.pathname === '/' ? <i className="b ri-home-4-fill  mr-2 flex text-2xl "></i> : <i className="b ri-home-4-line text-2xl mr-2 flex"></i>}
                             <h1 className={window.location.pathname === '/' ? 'font-bold' : ''}>Home</h1>
                         </Link>
                     </div>
@@ -83,7 +111,7 @@ const Header = () => {
                     </div>
                     <div className='a mb-4  active:opacity-25 px-2'>
                         <Link to='/explore/' className='flex items-center w-[100%] sm:hover:bg-gray-100 rounded-3xl p-1 px-2'>
-                            {window.location.pathname === '/explore/' ? <i className="b ri-compass-3-fill   text-2xl"></i> : <i className="b ri-compass-3-line text-2xl "></i>}
+                            {!showSearch && !showNotifications && location.pathname === '/explore/' ? <i className="b ri-compass-3-fill   text-2xl"></i> : <i className="b ri-compass-3-line text-2xl "></i>}
                             <h1 className={window.location.pathname === '/explore/' ? 'font-bold px-2' : 'px-2'}>Explore</h1>
                         </Link>
                     </div>
@@ -96,7 +124,7 @@ const Header = () => {
                     </div>
                     <div className='mb-4 active:opacity-25 px-2  a'>
                         <Link to={`/direct  `} className='flex items-center  w-[100%] sm:hover:bg-gray-100 rounded-2xl p-1 px-2'>
-                            {window.location.pathname === '/direct' ? <i className="ri-chat-smile-2-fill text-2xl b"></i> : <i className=" b ri-chat-smile-2-line text-2xl  "></i>}
+                            {!showSearch && !showNotifications && location.pathname === '/direct' ? <i className="ri-chat-smile-2-fill text-2xl b"></i> : <i className=" b ri-chat-smile-2-line text-2xl  "></i>}
                             <h1 className='px-2'>Messages</h1>
                         </Link>
                     </div>
@@ -106,8 +134,9 @@ const Header = () => {
                             <h1 className='px-2'>Notifications</h1>
                         </div>
                     </div>
+
                     <div className='mb-4  a active:opacity-25 px-2' >
-                        <button onClick={() => setVisible(true)} className='flex items-center w-[100%] sm:hover:bg-gray-100 rounded-3xl p-1 px-2'>
+                        <button onClick={showCreatePostModal} className='flex items-center w-[100%] sm:hover:bg-gray-100 rounded-3xl p-1 px-2'>
                             <i className="b ri-add-box-line text-2xl  "></i>
                             <h1 className='px-2'>Create</h1>
                         </button>
@@ -158,6 +187,6 @@ const Header = () => {
 
         </div>
     )
-}
+})
 
 export default Header

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect } from 'react'
 
 
 
@@ -20,19 +20,12 @@ const style = {
 
 const ReusableHeadersNav = ({ show, setShow, children,modalWidth,setModalWidth }: IProps) => {
    
-    useEffect(()=>{
-        setTimeout(()=>{
-            setModalWidth(20)
-        },0)
-      
+    useEffect(()=>{        
+            setModalWidth(20)       
     },[show])
        
 
-
-    
  
-
-    
 
     if (!show) return null
 

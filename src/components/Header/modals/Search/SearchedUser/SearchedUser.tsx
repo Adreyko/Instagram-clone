@@ -1,18 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-interface ParentStateItem {
+import { IuserData } from '../../../../../interfaces/interfaces';
 
-  fullName: string;
-  userName: string;
-  uid: string;
-  profileImage: string
 
-}
 
-interface ParentState {
-  posts: ParentStateItem;
-}
-const SearchedUser: React.FC<ParentStateItem> = ({ fullName, userName, profileImage, uid }) => {
+const SearchedUser: React.FC<IuserData> = ({ fullName, userName, profileImage, uid }) => {
   return (
     <div className='flex items-center justify-between p-4 '>
             <div className='flex   '>

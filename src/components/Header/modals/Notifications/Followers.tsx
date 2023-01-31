@@ -1,29 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
-import useFollow from '../../../../pages/Profile/hooks/useFollow';
-import ModalFollowing from '../../../../pages/Profile/SignedUserProfile/Modals/ModaUnFollow/ModalUnFollow';
-import { useAppSelector } from '../../../../redux/hooks/redux-hooks';
-import ReusableModal from '../ReusableModal';
-
-interface ParentStateItem {
-
-    profileImage: string;
-    uid: string;
-    userName: string;
-    fullName:string;
+import { IuserData } from '../../../../interfaces/interfaces';
 
 
-}
+const Followers: React.FC<IuserData> = ({ profileImage, uid, userName }) => {
 
-interface ParentState {
-    posts: ParentStateItem;
-}
-const Followers: React.FC<ParentStateItem> = ({ profileImage, uid, userName,fullName }) => {
-    const [visible, setVisible] = useState(false)
-    const anotherUser = useAppSelector(user => user.anotherUser.user)
-    const signedUser = useAppSelector(user => user.user.user)
-    const signedUserSubsribed = signedUser.following.find(user => uid === user.uid)
-    const { followPerson } = useFollow()
+
     return (
         <div className='flex items-center justify-between p-2 '>
             <div className='flex py-2 mb-2  '>

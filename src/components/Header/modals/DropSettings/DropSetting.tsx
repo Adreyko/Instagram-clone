@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import  {  useState } from 'react'
 import { Dispatch, SetStateAction } from "react";
-import { useDispatch } from 'react-redux';
-import { auth } from '../../../firebase/firebase';
+import { auth } from '../../../../firebase/firebase';
 import { signOut } from 'firebase/auth'
-import { removeUser } from '../../../redux/slices/userSlice/userSlice/userSlice';
-import { useAppDispatch } from '../../../redux/hooks/redux-hooks';
+import { removeUser } from '../../../../redux/slices/userSlice/userSlice/userSlice';
+import { useAppDispatch } from '../../../../redux/hooks/redux-hooks';
 import { useNavigate } from 'react-router-dom';
-import PagesRoutes from '../../../constants/router-types';
-import ReusableModal from '../modals/ReusableModal';
-import ModalLogin from '../../ModalLogin/ModalLogin';
+import PagesRoutes from '../../../../constants/router-types';
+import ReusableModal from '../ReusableModal';
+import ModalLogin from '../../../ModalLogin/ModalLogin';
 
 
 
@@ -22,14 +21,6 @@ const DropDownSetting = ({ setShowSettings }: IProps) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [visible, setVisible] = useState(false)
-  const [count, setCount] = useState(3)
-
-
-  const modalApper = () => {
-
-    setVisible(true)
-  }
-
 
 
 
@@ -38,8 +29,6 @@ const DropDownSetting = ({ setShowSettings }: IProps) => {
     dispatch(removeUser())
     navigate(PagesRoutes.SIGN_IN)
   }
-
-
 
 
 

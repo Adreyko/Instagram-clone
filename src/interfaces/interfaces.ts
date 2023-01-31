@@ -1,6 +1,4 @@
 
-
-
 export interface ISignUp {
     fullName: string,
     userName: string,
@@ -17,5 +15,26 @@ export interface IUserState extends ISignUp{
     phoneNumber: string,
     profileImage: string,
     posts: any[],
-    savedPosts: string[]
+    savedPosts: any[]
 }
+
+
+export interface IuserData {
+
+    fullName: string;
+    userName: string;
+    uid: string;
+    profileImage: string
+
+}
+
+
+export interface IPost {
+
+    postImage: string;
+    user: string;
+    postId: string;
+
+}
+
+

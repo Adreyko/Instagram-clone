@@ -22,9 +22,8 @@ const FollowersModal = () => {
   const { uid } = useParams()
   const [visible, setVisible] = useState(true)
   const navigate = useNavigate()
-  const signedUserFollowers = useAppSelector(post => post.user.user.followers)
-  const signedUser = useAppSelector(user => user.user.user)
-  const anotherUserFollowers = useAppSelector(user => user.anotherUser.user.followers)
+  const signedUser = useAppSelector(user=>user.user.user)
+
   const [user, setUser] = useState<any>()
 
   const fetchData = async () => {

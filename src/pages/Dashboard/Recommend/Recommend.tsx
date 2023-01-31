@@ -1,22 +1,9 @@
 import { collection, getDocs } from 'firebase/firestore'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { db } from '../../../firebase/firebase'
-
-import { Link } from 'react-router-dom';
 import RecPeople from './RecPeople';
 import { useAppSelector } from '../../../redux/hooks/redux-hooks';
-interface ParentStateItem {
 
-    fullName: string;
-    userName: string;
-    uid: string;
-    profileImage: string
-
-}
-
-interface ParentState {
-    posts: ParentStateItem;
-}
 
 const Recommend = () => {
     const [allUsers, setAllUsers] = useState<any>()
@@ -32,11 +19,13 @@ const Recommend = () => {
             setAllUsers((prev: any) => [...prev, { ...doc.data() }])
         })
     }
+
+
+
     let initialized = false;
-
-
     useEffect(() => {
         if (!initialized) {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
             initialized = true
             fetchData()
         }
@@ -48,6 +37,7 @@ const Recommend = () => {
     const peopleEl = recommendUsers?.map((user: any) => (
         <RecPeople fullName={user.fullName} uid={user.uid} userName={user.userName} profileImage={user.profileImage} />
     ))
+
 
 
     return (

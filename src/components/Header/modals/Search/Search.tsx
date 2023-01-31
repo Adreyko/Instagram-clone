@@ -1,14 +1,11 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react'
-import Header from '../../Header'
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../../firebase/firebase';
 import SearchedUser from './SearchedUser/SearchedUser';
 
 
 
 interface IProps {
-
- 
   modalWidth: number;
   setModalWidth: Dispatch<SetStateAction<number>>;
 }
@@ -52,6 +49,7 @@ const Search = ({modalWidth,setModalWidth } : IProps) => {
 
   useEffect(() => {
     if (!initialized) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       initialized = true
       fetchData()
     }
@@ -73,7 +71,7 @@ const Search = ({modalWidth,setModalWidth } : IProps) => {
           <h1 className='font-bold flex items-center text-2xl'>Search</h1>
         </div>
         <div className='py-4 px-2 border-b-[1px]'>
-          <input onChange={(e) => inputHandler(e)} value={userNameInput} placeholder=' Search'  type="search " className='border-2 bg-gray-100 px-4 py-2 w-[100%]   rounded-xl' />
+          <input onChange={(e) => inputHandler(e)} value={userNameInput} placeholder=' Search'  type="search" className=' outline-none bg-gray-100 px-4 py-2 w-[100%]   rounded-xl' />
         </div>
         <div className='font-bold text-[1rem] p-4'>
           <h1>Recent</h1>

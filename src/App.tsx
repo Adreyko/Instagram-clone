@@ -4,7 +4,6 @@ import { Routes, Route, Link, useParams } from 'react-router-dom'
 import Registration from './pages/Registration/Registration'
 import PagesRoutes from './constants/router-types'
 import MainPage from './pages/Dashboard/Dashboard'
-
 import AnotherUser from './pages/Profile/AnotherUser/AnotherUser'
 import NotFound from './pages/NotFound/NotFound'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -16,7 +15,8 @@ import Profile from './pages/Profile/Profile'
 import FollowersModal from './pages/Profile/Modals/FollowersModal/FollowersModal'
 import FollowingModal from './pages/Profile/Modals/FollowingModal/FollowingModal'
 import Explore from './pages/Explore/Explore'
-import Messages from './pages/Direct/Direct'
+import Direct from './pages/Direct/Direct'
+import Messages from './pages/Direct/Messages/Messages'
 
 
 const App = () => {
@@ -45,7 +45,7 @@ const App = () => {
       <Routes location={background || location}>
         <Route path={PagesRoutes.SIGN_IN} element={<Login />} />
         <Route path={PagesRoutes.SIGN_UP} element={<Registration />} />
-        <Route path="/direct" element={<Messages />} />
+        <Route path="/direct" element={<Direct />} />
         <Route path={PagesRoutes.MAIN} element={<MainPage />}>
           <Route path={`/:uid/:postId`} element={<PostModal />} />
           <Route path={`/:uid/followers/`} element={<FollowersModal />} />
@@ -54,6 +54,7 @@ const App = () => {
         <Route path={'/explore/'} element={<Explore />} />
         <Route path={`/:uid/`} element={<Profile />} />
         <Route path={`/:uid/`} element={<AnotherUser />} />
+      
         <Route path='*' element={<NotFound />} />
       </Routes>
       {background && <Routes>

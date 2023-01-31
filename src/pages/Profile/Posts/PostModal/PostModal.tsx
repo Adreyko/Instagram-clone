@@ -1,22 +1,17 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
-
 import { db } from '../../../../firebase/firebase'
 import { doc } from 'firebase/firestore'
-import { async } from '@firebase/util'
 import { getDoc } from 'firebase/firestore'
-import { collection, getDocs } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom'
-import { fetchUser } from '../../../../redux/slices/userSlice/userSlice/thunk/setFetchUser'
 import { addComment } from '../../../../redux/slices/userSlice/userSlice/thunk/AddComment'
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/redux-hooks'
 import { Comments } from './Comments/Comments'
 import useLikeControl from '../../hooks/useLikeControl'
 import ReusableModal from '../../../../components/Header/modals/ReusableModal'
 import LikedModal from './PostLikedUserMododal/LikedModal'
-import { current } from '@reduxjs/toolkit'
-import { Posts } from '../Posts'
-
+import { savePost } from '../../../../redux/slices/userSlice/userSlice/thunk/AddToSaved'
+import { removeSaved } from '../../../../redux/slices/userSlice/userSlice/thunk/RemoveFromSaved'
 
 
 const PostModal: React.FC = () => {
@@ -29,6 +24,10 @@ const PostModal: React.FC = () => {
     const signedUser = useAppSelector(user => user.user.user)
     const anotherUser = useAppSelector(user => user.anotherUser.user)
     const [visible, setVisible] = useState(false)
+
+
+    const ref = useRef<HTMLTextAreaElement>(null)
+
     const textAreaHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 
         setText(event.currentTarget.value)
@@ -50,7 +49,7 @@ const PostModal: React.FC = () => {
     // const addLike = async () => {
     //     dispatch(await likePost({ postId: postId , uid: uid  }))
     // }
-    const currentPost = user?.posts.find((post: { postId: string | undefined },index : number) => post.postId === postId)
+    const currentPost = user?.posts.find((post: { postId: string | undefined }, index: number) => post.postId === postId)
     const fetchData = async () => {
         const docRef = doc(db, "users", uid as string)
         const docSnap = await getDoc(docRef);
@@ -61,13 +60,13 @@ const PostModal: React.FC = () => {
         fetchData()
     }, [signedUser.posts, anotherUser.posts])
 
-//     const index = 0
+    //     const index = 0
 
 
 
-//     const NextPost = user?.posts[index]
+    //     const NextPost = user?.posts[index]
 
-// console.log(NextPost)
+    // console.log(NextPost)
 
 
     const commentsEl = currentPost?.commets.map((comment: { text: any, userId: any }) => (
@@ -82,7 +81,13 @@ const PostModal: React.FC = () => {
 
     const userLikedPost = currentPost?.likes.find((user: { uid: any }) => user.uid === signedUser.uid)
 
-  
+    // const currentSavedPost = signedUser?.post?.find((post: { postId: string | undefined }, index: number) => post.postId === postId)
+
+    const currentPostSaved = signedUser?.savedPosts?.find(post => post.postId === currentPost?.postId)
+
+
+    // const userAddToSaved = currentSavedPost?.find((user: { postId: string | undefined })=>user.postId === postId)
+    console.log(currentPostSaved)
 
     return (
         currentPost?.postId && (
@@ -90,7 +95,7 @@ const PostModal: React.FC = () => {
             <div className='fixed inset-0 z-10   bg-opacity-30 backdrop-blur-sm flex justify-center items-center bg-gray-500  ' onClick={() => navigate(-1)} >
                 <div onClick={e => e.stopPropagation()} className='  rounded shadow-sm z-20 w-[70%]  '>
                     <div className='md:flex bg-white block w-full '>
-                    
+
                         <div className=' flex items-center bg-black w-[90%]  h-[80vh] justify-center  '>
                             <img className=' object-contain w-[900px] h-[80vh] ' src={currentPost.postImage} alt="" />
                         </div>
@@ -125,27 +130,42 @@ const PostModal: React.FC = () => {
                                 }
 
                             </div>
-                            <div className='flex mt-2 border-t-[1px] p-2'>
+                            <div className='flex justify-between mt-2 border-t-[1px] p-2'>
+                                <div className='flex'>
+                                    <h1 className='mr-2'>
+                                        {
+                                            userLikedPost ?
+                                                <i onClick={() => removeLike({ postId: postId as string, uid: uid as string })}
+                                                    className="ri-heart-3-fill text-2xl text-red-400 cursor-pointer">
 
-                                <h1 className='mr-2'>
-                                    {
-                                        userLikedPost ?
-                                            <i onClick={() => removeLike({ postId: postId as string, uid: uid as string })}
-                                                className="ri-heart-3-fill text-2xl text-red-400 cursor-pointer">
-
-                                            </i>
-                                            :
-                                            <i
-                                                onClick={() => likePost({ postId: postId as string, uid: uid as string })}
+                                                </i>
+                                                :
+                                                <i
+                                                    onClick={() => likePost({ postId: postId as string, uid: uid as string })}
 
 
-                                                className="ri-heart-3-line text-2xl cursor-pointer">
-                                            </i>
-                                    }
-                                </h1>
-                                <h1 className='mr-2'><i className="ri-chat-3-line text-2xl cursor-pointer " ></i></h1>
-                                <h1><i className="ri-share-box-fill cursor-pointer text-2xl"></i></h1>
+                                                    className="ri-heart-3-line text-2xl cursor-pointer hover:text-zinc-400  ">
+                                                </i>
+                                        }
+                                    </h1>
+                                    <h1 className='mr-2'><i className="ri-chat-3-line text-2xl cursor-pointer  hover:text-zinc-400" onClick={() => ref.current?.focus()} ></i></h1>
+                                    <h1><i className="ri-share-box-fill cursor-pointer text-2xl hover:text-zinc-400"></i></h1>
+                                </div>
+                                {signedUser.uid === uid ? '' :  
+                                    <div>
+                                        {
+                                            currentPostSaved ?
+                                                <i 
+                                                onClick={()=>dispatch(removeSaved(currentPost))}
+                                                className="ri-bookmark-fill  text-2xl cursor-pointer"></i>
+                                                :
+                                                <i className="ri-bookmark-line text-2xl cursor-pointer hover:text-zinc-400"
+                                                    onClick={() => dispatch(savePost(currentPost))}>
+                                                </i>}
 
+                                    </div>
+
+                                }
 
                             </div>
                             <ReusableModal visible={visible} setVisible={setVisible}>
@@ -156,7 +176,7 @@ const PostModal: React.FC = () => {
                                 <h1 onClick={() => setVisible(true)}>Like</h1>
                             </div>
                             <div className='flex justify-between p-2 border-t-[1px]'>
-                                <textarea className='w-[90%] resize-none outline-none '
+                                <textarea ref={ref} className='w-[90%] resize-none outline-none '
                                     value={text}
                                     onChange={(e) => textAreaHandler(e)}
                                     name="" id=""
@@ -169,8 +189,8 @@ const PostModal: React.FC = () => {
 
                         </div>
                     </div>
-                     
-                    
+
+
                 </div>
             </div>
         )

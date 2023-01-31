@@ -35,6 +35,9 @@ const chatSlice = createSlice({
     reducers: {
         setChat(chat, action) {
             chat.chat = action.payload
+        },
+        removeChat(chat){
+            chat.chat = initialState.chat
         }
     }
 
@@ -44,6 +47,6 @@ const chatSlice = createSlice({
 
 
 
-export const { setChat } = chatSlice.actions;
+export const { setChat,removeChat } = chatSlice.actions;
 
 export default chatSlice.reducer

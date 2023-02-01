@@ -12,7 +12,7 @@ import ReusableModal from '../../../../components/Header/modals/ReusableModal'
 import LikedModal from './PostLikedUserMododal/LikedModal'
 import { savePost } from '../../../../redux/slices/userSlice/userSlice/thunk/AddToSaved'
 import { removeSaved } from '../../../../redux/slices/userSlice/userSlice/thunk/RemoveFromSaved'
-
+import SharePostModal from '../../SignedUserProfile/Modals/SharePostModal/SharePostModal'
 
 const PostModal: React.FC = () => {
     const { postId, uid } = useParams()
@@ -23,6 +23,7 @@ const PostModal: React.FC = () => {
     const [user, setUser] = useState<any>()
     const signedUser = useAppSelector(user => user.user.user)
     const anotherUser = useAppSelector(user => user.anotherUser.user)
+    const [visibleShare, setVisibleShare] = useState(false)
     const [visible, setVisible] = useState(false)
 
 
@@ -149,15 +150,18 @@ const PostModal: React.FC = () => {
                                         }
                                     </h1>
                                     <h1 className='mr-2'><i className="ri-chat-3-line text-2xl cursor-pointer  hover:text-zinc-400" onClick={() => ref.current?.focus()} ></i></h1>
-                                    <h1><i className="ri-share-box-fill cursor-pointer text-2xl hover:text-zinc-400"></i></h1>
+                                    <i onClick={() => setVisibleShare(true)} className="ri-send-plane-line pt-[1px]  cursor-pointer text-2xl hover:text-zinc-400"></i>
+                                    <ReusableModal visible={visibleShare} setVisible={setVisibleShare}>
+                                        <SharePostModal postId={postId as string} profileImage={currentPost?.profileImage} user={user} postImage={currentPost.postImage} userName={user.profileImage} />
+                                    </ReusableModal>
                                 </div>
-                                {signedUser.uid === uid ? '' :  
+                                {signedUser.uid === uid ? '' :
                                     <div>
                                         {
                                             currentPostSaved ?
-                                                <i 
-                                                onClick={()=>dispatch(removeSaved(currentPost))}
-                                                className="ri-bookmark-fill  text-2xl cursor-pointer"></i>
+                                                <i
+                                                    onClick={() => dispatch(removeSaved(currentPost))}
+                                                    className="ri-bookmark-fill  text-2xl cursor-pointer"></i>
                                                 :
                                                 <i className="ri-bookmark-line text-2xl cursor-pointer hover:text-zinc-400"
                                                     onClick={() => dispatch(savePost(currentPost))}>

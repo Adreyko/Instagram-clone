@@ -48,7 +48,7 @@ const Messages = () => {
 
 
     const sendMessage = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: 'heart' }))
+        dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: 'heart',post:'' }))
         setMessage('')
 
     }
@@ -58,7 +58,7 @@ const Messages = () => {
 
         const sendPhoto = async () => {
 
-            dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: '' }))
+            dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: '',post:'' }))
             setSelectedImage(undefined)
         }
 
@@ -70,7 +70,7 @@ const Messages = () => {
     const handleKeyDown = async (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
             // 👇 Get input value
-            dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: 'heart' }))
+            dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: 'heart',post:'' }))
             setMessage('')
         }
     };
@@ -78,7 +78,7 @@ const Messages = () => {
 
 
     const messageEl = chat.map((c: any) => (
-        <Message message={c} />
+        <Message message={c} postMessage = {c.post} />
     ))
     return (
         <>

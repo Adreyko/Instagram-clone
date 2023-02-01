@@ -23,7 +23,7 @@ const AnotherUser: React.FC = () => {
     const [visible, setVisible] = useState(false)
     const { chatWithUser } = useChat()
     const navigate = useNavigate()
-    const createChatRoom = () => {
+    const createChat = () => {
         chatWithUser(anotherUser)
         navigate('/direct')
 
@@ -56,7 +56,7 @@ const AnotherUser: React.FC = () => {
                                 <ModalFollowing profileImage={anotherUser.profileImage}
                                     setVisible={setVisible} uid={uid as string} />
                             </ReusableModal>
-                            <button className='ml-4 bg-zinc-200 p-1 px-3 rounded-md mb-2 ' onClick={createChatRoom}>Message</button>
+                            <button className='ml-4 bg-zinc-200 p-1 px-3 rounded-md mb-2 ' onClick={createChat}>Message</button>
 
                         </div>
                         <div className='flex  mt-4 mr-12 '>

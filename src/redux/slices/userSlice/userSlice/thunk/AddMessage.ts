@@ -12,16 +12,16 @@ type MessageType  = {
   selectedImage: File ;
   message: string;
   heart:string;
+  post :any
 }
 
 
 
-export const addMessage = createAsyncThunk('chat/addMessage', async ({ selectedImage,message,heart }: MessageType, { dispatch, getState }) => {
+export const addMessage = createAsyncThunk('chat/addMessage', async ({ selectedImage,message,heart ,post}: MessageType, { dispatch, getState }) => {
 
 
 const userChat = (getState() as any).chat.chat
 const signedUser = (getState() as RootState).user.user
-
 
   if (selectedImage) {
       const imagesRef = ref(storage, `Images/${selectedImage?.name + uuidv4()}`)
@@ -72,6 +72,16 @@ const signedUser = (getState() as RootState).user.user
       })
   })
 
+  }else if(post){
+    await updateDoc(doc(db, 'chat', userChat.chatId), {
+        message: arrayUnion({
+            id: uuidv4(),
+            post,
+            senderId: signedUser.uid,
+            date: Timestamp.now(),
+        })
+    })
+  
   }
 
 }

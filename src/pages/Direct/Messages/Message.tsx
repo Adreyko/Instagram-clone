@@ -1,17 +1,17 @@
 import React, { useRef, useEffect } from 'react'
 import { useAppSelector } from '../../../redux/hooks/redux-hooks'
 import { uuidv4 } from '@firebase/util'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 
 
 
 
 
-const Message = ({ message }: any) => {
+const Message = ({ message, postMessage }: any) => {
     const signedUser = useAppSelector(user => user.user.user)
     const chatUserImage = useAppSelector(user => user.chat.chat.profileImage)
     const anotherUid = useAppSelector(user => user.chat.chat.uid)
-
+    const location = useLocation()
 
     const { chatId } = useParams()
 
@@ -25,10 +25,10 @@ const Message = ({ message }: any) => {
 
     useEffect(() => {
         ref.current?.scrollIntoView({ block: 'end' })
-    },[])
-    //  let removeQuotes = message?.heart?.replace(/^"(.*)"$/, '$1');
+    }, [])
 
-    //  <Link to={`/${uid}/`}><img className='border-[1px] rounded-full h-12 w-12' alt='prof' src={`${profileImage ? profileImage : '/images/profile.png'}`} /></Link>  
+
+    console.log(message.post)
     return (
         <div ref={ref}>
 
@@ -42,6 +42,17 @@ const Message = ({ message }: any) => {
                             <img src={`${message.image}`} className=' rounded-3xl w-[200px] h-[200px]' alt="" />
                         </div> : ''}
                         {message.heart ? <i className="ri-heart-fill text-red-500 text-4xl"></i> : ''}
+                        {message.post ?
+                            <div className='bg-gray-200 pt-2 rounded-xl '>
+                                <Link to={`/${message.post[0]}/`}> <div className='flex p-2'>
+                                    <img className='h-6 w-6 rounded-3xl mr-2 ' src={message.post[3]} alt="" />
+                                    <h1>{message.post[4]}</h1>
+                                </div>
+                                </Link>
+                                <Link to={`/${message.post[0]}/${message.post[2]}`} state={{ background: location }}>
+                                    <img className='w-36 h-36 rounded-b-xl object-cover' src={message.post[1]} alt="s" />
+                                </Link>
+                            </div> : ''}
                     </div>
                     :
                     <div className='flex '>
@@ -54,6 +65,17 @@ const Message = ({ message }: any) => {
                                 <img src={`${message.image}`} className=' rounded-3xl w-[200px] h-[200px]' alt="" />
                             </div> : ''}
                             {message.heart ? <i className="ri-heart-fill text-red-500 text-4xl"></i> : ''}
+                            {message.post ?
+                            <div className='bg-gray-200 pt-2 rounded-xl '>
+                                <Link to={`/${message.post[0]}/`}> <div className='flex p-2'>
+                                    <img className='h-6 w-6 rounded-3xl mr-2 ' src={message.post[3]} alt="" />
+                                    <h1>{message.post[4]}</h1>
+                                </div>
+                                </Link>
+                                <Link to={`/${message.post[0]}/${message.post[2]}`} state={{ background: location }}>
+                                    <img className='w-36 h-36 rounded-b-xl object-cover' src={message.post[1]} alt="s" />
+                                </Link>
+                            </div> : ''}
                         </div>
 
                     </div>

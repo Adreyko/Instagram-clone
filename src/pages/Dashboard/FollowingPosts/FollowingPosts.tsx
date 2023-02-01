@@ -95,10 +95,10 @@ const FollowingPosts: React.FC<IPost> = ({ postImage, user, postId }) => {
                         }
                     </h1>
                     <i onClick={() => ref.current?.focus()} className="ri-chat-3-line text-2xl cursor-pointer hover:text-zinc-400 mr-2"></i>
-                    <i onClick={() => setVisible(true)} className="ri-share-box-fill cursor-pointer text-2xl hover:text-zinc-400"></i>
+                    <i onClick={() => setVisible(true)} className="ri-send-plane-line pt-[1px] cursor-pointer text-2xl hover:text-zinc-400"></i>
 
                     <ReusableModal visible={visible} setVisible={setVisible}>
-                        <SharePostModal />
+                        <SharePostModal postId={postId}  profileImage={userFollowing?.profileImage} user={user} postImage={postImage} userName={userFollowing?.userName}/>
                     </ReusableModal>
 
                 </div>

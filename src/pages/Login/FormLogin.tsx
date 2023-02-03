@@ -45,7 +45,7 @@ const FormLogin: React.FC = () => {
     return (
         <>
             <form className='flex  py-16 justify-center items-center bg-gray-100 h-[100vh] '>
-                <img className='' alt='instapresent' src='./images/instalogin.png' />
+                <img className='' alt='instapresent' src={process.env.PUBLIC_URL + '/images/instalogin.png'} />
                 <div>
                     <div className=' bg-white border-[1px] mr-48 flex-row justify-center items-center h-[300px] py-8 w-[300px] mb-2'>
                         <div className=' '>

@@ -69,7 +69,7 @@ const FollowingPosts: React.FC<IPost> = ({ postImage, user, postId }) => {
     return (
         <div className='sm:w-[40%] w-[60%] sm:h-[800px]  h-[500px]  bg-white   flex flex-col   my-8 pb-8 '>
             <div className='flex items-center  p-2'>
-                <img className='border-[1px] rounded-full h-10 w-10 mr-2' src={userFollowing?.profileImage} alt="" />
+                <img className='border-[1px] rounded-full h-10 w-10 mr-2' src={userFollowing?.profileImage ?  userFollowing?.profileImage : process.env.PUBLIC_URL +`/images/profile.png`} alt="" />
                 <Link className='hover:text-zinc-400' to={`/${user}/`}>{userFollowing?.userName}</Link>
             </div>
             <div className='bg-black flex items-center justify-center  w-[100%] h-[80%] '>

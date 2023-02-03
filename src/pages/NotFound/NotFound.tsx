@@ -1,8 +1,10 @@
 import React from 'react'
+import { Navigate } from 'react-router-dom'
 import Header from '../../components/Header/Header'
-
+import PagesRoutes from '../../constants/router-types'
+import { auth } from '../../firebase/firebase'
 const NotFound = () => {
-    return (
+    return auth.currentUser ?  (
 
         <div className='flex'>
             <Header/>
@@ -11,7 +13,10 @@ const NotFound = () => {
             <p className='mt-8'>The link you followed may be broken, or the page may have been removed. <span className='text-indigo-300'>Go back to Instagram.</span> </p>
             </div>
         </div>
-    )
+    ): (
+        <Navigate to={PagesRoutes.SIGN_IN} />
+      )
+
 }
 
 export default NotFound

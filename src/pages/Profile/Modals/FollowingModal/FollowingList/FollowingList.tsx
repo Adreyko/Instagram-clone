@@ -23,7 +23,7 @@ const FollowingList: React.FC<ParentStateItem> = ({ fullName, userName, profileI
     return (
         <div className='flex items-center justify-between '>
             <div className='flex py-2 mb-2 '>
-                <Link to={`/${uid}/`}><img className='border-[1px] rounded-full h-12 w-12' alt='prof' src={`${profileImage ? profileImage : '/images/profile.png'}`} /></Link>
+                <Link to={`/${uid}/`}><img className='border-[1px] rounded-full h-12 w-12' alt='prof' src={profileImage ? profileImage : process.env.PUBLIC_URL +`/images/profile.png`} /></Link>
                 <div className='ml-2'>
                     <p className=''>{userName}</p>
                     <h1 className='text-gray-400'>{fullName}</h1>

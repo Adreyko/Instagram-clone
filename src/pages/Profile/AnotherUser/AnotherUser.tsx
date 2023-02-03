@@ -34,7 +34,7 @@ const AnotherUser: React.FC = () => {
                 <div className='flex  justify-center'>
                     <div className='mr-8 h-32 w-32 sm:h-40 sm:w-40'>
                         <img className=' rounded-full object-cover  w-[100px] h-[100px]  sm:h-40 sm:w-40    cursor-pointer border-[1px]'
-                            src={`${profileImage ? profileImage : '/images/profile.png'}`} alt="" />
+                            src={profileImage ? profileImage : process.env.PUBLIC_URL +`/images/profile.png`} alt="" />
                     </div>
                     <div>
                         <div className='sm:flex-row justify-between w-[50%] sm:w-[100%]  flex flex-col  text-center '>

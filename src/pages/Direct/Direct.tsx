@@ -53,7 +53,7 @@ const Direct = () => {
 
 
 
-    return auth ? (
+    return auth.currentUser ? (
 
         <div className='sm:flex bg-gray-50 h-[100vh]'>
             <div className='w-[20%]'>

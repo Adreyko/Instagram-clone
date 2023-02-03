@@ -28,7 +28,7 @@ const ShareSuggestion = ({ uid, profileImage, userName, fullName }: IuserData) =
     return (
         <div className='flex p-2 hover:bg-zinc-200 cursor-pointer justify-between'>
             <div className='flex w-[100%]' >
-                <img className='h-12 w-12 rounded-3xl' src={profileImage} alt="" />
+                <img className='h-12 w-12 rounded-3xl' src={profileImage ? profileImage : process.env.PUBLIC_URL +`/images/profile.png`} alt="" />
                 <div className='ml-2 text-[15px]'>
                     <h1 className='font-[500]'>{userName}</h1>
                     <h1 className='text-gray-400'>{fullName}</h1>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from 'react'
-import { getAuth } from 'firebase/auth'
+
 import PagesRoutes from '../../constants/router-types'
 import Header from '../../components/Header/Header'
 import { Navigate, } from 'react-router-dom'
@@ -8,11 +8,11 @@ import FollowingPosts from './FollowingPosts/FollowingPosts'
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase/firebase'
 import Recommend from './Recommend/Recommend';
-
+import { auth } from '../../firebase/firebase'
 
 const MainPage = () => {
 
-  const auth = getAuth()
+
   const signedUser = useAppSelector(user => user.user.user)
   const signedUserFollowing = signedUser.following
   const [followingPosts, setFollowingPosts] = useState<any>([])
@@ -49,7 +49,7 @@ const MainPage = () => {
 
 
 
-  return auth ? (
+  return auth.currentUser ? (
 
     <div className='sm:flex  '>
       <div className='w-[20%]'>

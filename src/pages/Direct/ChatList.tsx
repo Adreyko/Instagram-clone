@@ -32,7 +32,7 @@ const ChatList = ({ userName, profileImage, uid, chatId, lastMessage }: userToCh
     <Link to={`#/${chatId}`}>
       <div className={`flex p-2 hover:bg-zinc-100 cursor-pointer ${chatId === currentChatId ? 'bg-zinc-200 hover:bg-zinc-200' : ''} `} onClick={() => dispatch(setChat(userInfo))} >
 
-        <img className='border-[1px] rounded-full h-14 w-14 mt-2' src={profileImage} alt="" />
+        <img className='border-[1px] rounded-full h-14 w-14 mt-2' src={profileImage ? profileImage : process.env.PUBLIC_URL +`/images/profile.png`} alt="" />
         <div className='flex flex-col justify-center  ml-2'>
           <h1 className='  ' >{userName}</h1>
           <h1 className='text-gray-400'>{lastMessage}</h1>

@@ -5,6 +5,9 @@ import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebase'
 import ExoploreImages from './ExploreImages/ExoploreImages';
 import { number } from 'yup';
+import { Navigate } from 'react-router-dom';
+import PagesRoutes from '../../constants/router-types';
+import { auth } from '../../firebase/firebase';
 const Explore = () => {
 
     const [allUsers, setAllUsers] = useState<any>()
@@ -41,7 +44,7 @@ const Explore = () => {
 
 
 
-    return (
+    return  auth.currentUser ? (
         <div className='sm:flex   '>
             <div className='w-[20%]'>
                 <Header />
@@ -53,7 +56,10 @@ const Explore = () => {
             </div>
         </div>
 
-    )
+    ) : (
+        <Navigate to={PagesRoutes.SIGN_IN} />
+      )
+
 }
 
 export default Explore

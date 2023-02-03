@@ -98,13 +98,13 @@ const PostModal: React.FC = () => {
                     <div className='md:flex bg-white block w-full '>
 
                         <div className=' flex items-center bg-black w-[100%]  h-[50vh] sm:h-[80vh] justify-center  '>
-                            <img className=' object-contain w-[900px] h-[80vh] ' src={currentPost.postImage} alt="" />
+                            <img className=' object-contain w-[900px] h-[80vh] ' src={currentPost.postImage } alt="" />
                         </div>
 
                         <div className='w-[100%]'>
                             <div className='bg-white flex justify-between px-4 h-[75px] border-b-[1px] items-center '>
                                 <div className='flex w-[100%] items-center '>
-                                    <img className='w-10 h-10 rounded-full mr-4' src={user.profileImage} alt="" />
+                                    <img className='w-10 h-10 rounded-full mr-4' src={user.profileImage ? user.profileImage : process.env.PUBLIC_URL +`/images/profile.png`} alt="" />
                                     <h1 className=''>{user.userName}</h1>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@ const PostModal: React.FC = () => {
                                     currentPost.commets.length > 0 || currentPost.text !== '' ?
                                         <div>
                                             <div className='flex'>
-                                                <img className='w-10 h-10 rounded-full mr-4 ' src={user.profileImage} alt="" />
+                                                <img className='w-10 h-10 rounded-full mr-4 ' src={user.profileImage ? user.profileImage : process.env.PUBLIC_URL +`/images/profile.png`} alt="" />
                                                 <h1 className='font-medium text-[13px]'>{user.userName}</h1>
                                                 <h1 className='ml-2'>{currentPost.text}</h1>
 

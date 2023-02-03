@@ -1,6 +1,6 @@
 import { useEffect, useState,memo } from 'react'
 import 'remixicon/fonts/remixicon.css'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useAppSelector } from '../../redux/hooks/redux-hooks'
 import DropDownSetting from './modals/DropSettings/DropSetting'
 import '../../App.css';
@@ -11,8 +11,8 @@ import { useLocation } from 'react-router-dom'
 import Notifications from './modals/Notifications/Notifications'
 import ReusableHeadersNav from './modals/ReusableHeadersNav'
 import LoadingBar from 'react-top-loading-bar'
-
-
+import { auth } from '../../firebase/firebase'
+import PagesRoutes from '../../constants/router-types'
 
 const Header = memo(() => {
 
@@ -30,6 +30,7 @@ const Header = memo(() => {
     const [progress, setProgress] = useState(100)
 
     const location = useLocation()
+
 
 
 
@@ -76,7 +77,7 @@ const Header = memo(() => {
 
 
 
-    return (
+    return auth ?  (
         <div className='flex '>
             <LoadingBar
                 color='#FF8000'
@@ -143,7 +144,7 @@ const Header = memo(() => {
                         <Link to={`/${signedUser.uid}/`} className={`${location.pathname === `/${signedUser.uid}/` ? 'font-bold' : ''} flex items-center w-[100%]  sm:hover:bg-gray-100 rounded-3xl p-1 px-2`}>
                             <img
                                 alt='profileImg'
-                                src={`${profileImage ? profileImage : '/images/profile.png'}`}
+                                src={profileImage ? profileImage : process.env.PUBLIC_URL +`/images/profile.png`}
                                 className='w-6 rounded-full h-6  b   '
                             />
                             <h1 className='px-2 '>Profile</h1>
@@ -180,7 +181,9 @@ const Header = memo(() => {
             }
 
         </div>
-    )
+    ): (
+        <Navigate to={PagesRoutes.SIGN_IN} />
+      )
 })
 
 export default memo(Header) 

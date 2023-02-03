@@ -38,7 +38,7 @@ const SignedUser = () => {
             <div className='   w-[100%] p-4  xl:mx-[20%]  '>
                 <div className='flex  justify-center '>
                     <div className='w-[30%] flex justify-center '>
-                        <img onClick={() => setVisible(true)} className='rounded-full object-cover  w-[100px] h-[100px]  sm:h-40 sm:w-40    cursor-pointer border-[1px]' src={`${profileImage ? profileImage : '/images/profile.png'}`} alt="" />
+                        <img onClick={() => setVisible(true)} className='rounded-full object-cover  w-[100px] h-[100px]  sm:h-40 sm:w-40    cursor-pointer border-[1px]' src={profileImage ? profileImage : process.env.PUBLIC_URL +`/images/profile.png`} alt="" />
                     </div>
                     <ReusableModal visible={visible} setVisible={setVisible}>
                         <ModalUploadImage setVisible={setVisible} />

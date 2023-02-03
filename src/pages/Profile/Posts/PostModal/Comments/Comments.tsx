@@ -33,7 +33,7 @@ export const Comments: React.FC<ParentStateItem> = ({ text, userId }) => {
             <Link
                 to={`/${userId}/`}>
                 <img className='w-10 h-10 rounded-full mr-4 '
-                    src={user.profileImage}
+                    src={user.profileImage ? user.profileImage : process.env.PUBLIC_URL +`/images/profile.png`}
                     alt="" />
             </Link>
             <Link

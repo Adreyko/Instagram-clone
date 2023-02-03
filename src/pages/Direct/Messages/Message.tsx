@@ -68,13 +68,13 @@ const Message = ({ message, postMessage }: any) => {
                             </div> : ''}
                             {message.heart ? <i className="ri-heart-fill text-red-500 text-4xl"></i> : ''}
                             {message.post ?
-                            <div className='bg-gray-200 my-10 py-2 rounded-3xl w-[40%] h-[300px]'>
+                            <div className='bg-gray-200 my-10 py-2 rounded-3xl w-[200px] h-[300px]'>
                                 <Link to={`/${message.post[0]}/`}> <div className='flex p-4'>
-                                    <img className='h-6 w-6 rounded-3xl mr-2 ' src={message.post[3]} alt="" />
-                                    <h1>{message.post[4]}</h1>
+                                    <img className='h-6 w-6 rounded-3xl mr-2 ' src={message.post[3] ? message.post[3] : process.env.PUBLIC_URL +`/images/profile.png`} alt="" />
+                                    <h1>{message.post[4]} </h1>
                                 </div>
                                 </Link>
-                                <Link to={`/${message.post[0]}/${message.post[2]}`} state={{ background: location }}>
+                                <Link  to={`/${message.post[0]}/${message.post[2]}`} state={{ background: location }}>
                                     <img className='w-full h-full  rounded-b-3xl object-cover' src={message.post[1]} alt="s" />
                                 </Link>
                             </div> : ''}

@@ -1,9 +1,10 @@
 
 import EmojiPicker from 'emoji-picker-react'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/redux-hooks'
 import { addNewPost } from '../../../../redux/slices/userSlice/userSlice/thunk/AddNewPost'
 import { EmojiClickData } from 'emoji-picker-react/dist/types/exposedTypes'
+import { relative } from 'path'
 
 interface IProps {
 
@@ -78,7 +79,7 @@ const NewPostModal = ({ setVisible }: IProps) => {
                 </div>
 
                 <h1>Drag photos and videos here</h1>
-                <label className='bg-blue-500 rounded-lg px-4 py-1 hover:bg-blue-300  text-white'>
+                <label className='bg-blue-500 rounded-lg px-4 py-1 hover:bg-blue-300 text-xl text-white'>
                     <input onChange={(e) => createNewPostPreview(e)} type="file" className='hidden' />
                     Select from computer
                 </label>
@@ -88,13 +89,14 @@ const NewPostModal = ({ setVisible }: IProps) => {
     ) :
         nextStep === 1 ?
             (
-                <div className='flex flex-col bg-white sm:w-[620px] rounded-xl w-[300px] m-[100px] '>
+                <div className='flex flex-col bg-white sm:w-[900px] sm:h-[700px]  rounded-xl w-[300px] m-[100px] '>
                     <div className=' flex justify-between items-center p-2 '>
                         <button onClick={() => setNextStep(prev => prev - 1)} className='text-2xl flex '>🡠</button>
-                        <h1>Crop</h1>
-                        <button className='text-blue-400 hover:text-black active:text-blue-200' onClick={() => setNextStep(prev => prev + 1)}>Next</button>
+                        <h1 className='text-xl'>Crop</h1>
+                       
+                        <button className='text-blue-400 text-xl hover:text-black active:text-blue-200' onClick={() => setNextStep(prev => prev + 1)}>Next</button>
                     </div>
-                    <div className='flex items-center bg-black ] h-[400px]    justify-center rounded-b-xl'>
+                    <div className='flex items-center bg-black  h-[100%]    justify-center rounded-b-xl'>
                         <img className='  h-[100%] w-[100%] object-contain ' src={imagesUrl} alt="" />
                     </div>
 
@@ -103,15 +105,15 @@ const NewPostModal = ({ setVisible }: IProps) => {
 
 
 
-            <div className='bg-white  sm:w-[620px] rounded-xl w-[300px] m-[100px]  '>
+            <div className='bg-white  sm:w-[900px] sm:h-[700px] rounded-xl w-[300px] m-[100px]  '>
                 <div className=' flex justify-between p-2 '>
-                    <button onClick={() => setNextStep(prev => prev - 1)}>🡠</button>
-                    <h1>Create new post</h1>
-                    <button onClick={(e) => sharePost(e)} className='text-blue-400 hover:text-black active:text-blue-200'>Share</button>
+                    <button className='text-xl' onClick={() => setNextStep(prev => prev - 1)}>🡠</button>
+                    <h1 className='text-xl'>Create new post</h1>
+                    <button onClick={(e) => sharePost(e)} className='text-blue-400 text-xl hover:text-black active:text-blue-200'>Share</button>
 
                 </div>
-                <div className='flex  '>
-                    <div className='flex items-center bg-black  h-[400px] justify-center rounded-b-xl w-[70%]'>
+                <div className='flex sm:h-[650px] '>
+                    <div className='flex items-center bg-black  h-[100%] justify-center rounded-b-xl w-[70%]'>
                         <img className=' h-[100%] w-[100%] object-contain' src={imagesUrl} alt="" />
                     </div>
 
@@ -137,11 +139,13 @@ const NewPostModal = ({ setVisible }: IProps) => {
                                 <button onClick={() => setShowPicker(prev => !prev)}>&#128515;</button>
                                 <h1 className='text-gray-400' >{text.length}/2,200</h1>
                             </div>
-                            <div className='w-[50%]'>
+                            <div className='h-[400px]'>
                                 {showPicker &&
                                     <EmojiPicker
                                         onEmojiClick={onEmojiClick}
-                                        height={320}
+                                        width={'90%'}
+                                        height={'100%'}
+                                       
 
                                     />}
                             </div>
@@ -153,4 +157,4 @@ const NewPostModal = ({ setVisible }: IProps) => {
             </div>
 }
 
-export default NewPostModal 
+export default memo(NewPostModal)

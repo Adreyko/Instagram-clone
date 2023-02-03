@@ -1,5 +1,5 @@
 import { doc, getDoc } from 'firebase/firestore';
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, memo } from 'react'
 import { db } from '../../../firebase/firebase';
 import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../redux/hooks/redux-hooks';
@@ -67,13 +67,13 @@ const FollowingPosts: React.FC<IPost> = ({ postImage, user, postId }) => {
 
 
     return (
-        <div className='w-[30%] h-[600px] bg-white   flex flex-col  border-b-[1px] mt-2  '>
+        <div className='sm:w-[40%] w-[60%] sm:h-[800px]  h-[500px]  bg-white   flex flex-col   my-8 pb-8 '>
             <div className='flex items-center  p-2'>
                 <img className='border-[1px] rounded-full h-10 w-10 mr-2' src={userFollowing?.profileImage} alt="" />
                 <Link className='hover:text-zinc-400' to={`/${user}/`}>{userFollowing?.userName}</Link>
             </div>
-            <div className='bg-black flex items-center justify-center  w-[100%] h-[100%] '>
-                <img className='  bg-black w-full sm:h-[250px] h-[100px] flex items-center justify-center object-cover' src={postImage} alt="" />
+            <div className='bg-black flex items-center justify-center  w-[100%] h-[80%] '>
+                <img className='   w-full h-full    flex items-center justify-center object-contain' src={postImage} alt="" />
             </div>
             <div className='flex justify-between'>
                 <div className='flex mt-2  p-2'>
@@ -103,7 +103,7 @@ const FollowingPosts: React.FC<IPost> = ({ postImage, user, postId }) => {
 
                 </div>
                 {signedUser.uid === user ? '' :
-                    <div>
+                    <div className='mt-2  p-2'>
                         {
                             currentPostSaved ?
                                 <i
@@ -122,8 +122,8 @@ const FollowingPosts: React.FC<IPost> = ({ postImage, user, postId }) => {
                 <h1 className='mr-2'>{currentPost?.likes?.length}</h1>
                 <h1>{currentPost?.likes?.length > 1 ? 'likes' : 'like'}</h1>
             </div>
-            <div className='flex justify-between p-2  items-center '>
-                <textarea ref={ref} className='w-[90%] resize-none outline-none h- '
+            <div className='flex justify-between p-2  items-center border-b-[1px] '>
+                <textarea ref={ref} className='w-[90%] resize-none outline-none h-8  '
                     value={text}
                     onChange={(e) => textAreaHandler(e)}
                     name="" id=""
@@ -137,4 +137,4 @@ const FollowingPosts: React.FC<IPost> = ({ postImage, user, postId }) => {
 
 }
 
-export default FollowingPosts
+export default memo(FollowingPosts)

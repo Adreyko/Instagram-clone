@@ -97,7 +97,7 @@ const PostModal: React.FC = () => {
                 <div onClick={e => e.stopPropagation()} className='  rounded shadow-sm z-20 w-[70%]  '>
                     <div className='md:flex bg-white block w-full '>
 
-                        <div className=' flex items-center bg-black w-[90%]  h-[80vh] justify-center  '>
+                        <div className=' flex items-center bg-black w-[100%]  h-[50vh] sm:h-[80vh] justify-center  '>
                             <img className=' object-contain w-[900px] h-[80vh] ' src={currentPost.postImage} alt="" />
                         </div>
 
@@ -131,7 +131,7 @@ const PostModal: React.FC = () => {
                                 }
 
                             </div>
-                            <div className='flex justify-between mt-2 border-t-[1px] p-2'>
+                            <div className='flex justify-between mt-2 sm:border-t-[1px] p-2'>
                                 <div className='flex'>
                                     <h1 className='mr-2'>
                                         {

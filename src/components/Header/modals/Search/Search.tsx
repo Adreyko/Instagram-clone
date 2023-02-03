@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState, useEffect } from 'react'
+import React, { Dispatch, SetStateAction, useState, useEffect, memo } from 'react'
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../../firebase/firebase';
 import SearchedUser from './SearchedUser/SearchedUser';
@@ -85,4 +85,4 @@ const Search = ({modalWidth,setModalWidth } : IProps) => {
   )
 }   
 
-export default Search
+export default memo(Search)

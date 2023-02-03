@@ -1,5 +1,5 @@
 import { collection, getDocs } from 'firebase/firestore'
-import  { useEffect, useState } from 'react'
+import  { memo, useEffect, useState } from 'react'
 import { db } from '../../../firebase/firebase'
 import RecPeople from './RecPeople';
 import { useAppSelector } from '../../../redux/hooks/redux-hooks';
@@ -52,4 +52,4 @@ const Recommend = () => {
     )
 }
 
-export default Recommend
+export default memo(Recommend)

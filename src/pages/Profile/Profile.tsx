@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import SignedUser from './SignedUserProfile/SignedUser'
 import AnotherUser from './AnotherUser/AnotherUser'
@@ -73,4 +73,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default memo(Profile)

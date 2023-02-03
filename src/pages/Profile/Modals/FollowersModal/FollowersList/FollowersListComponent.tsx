@@ -28,10 +28,7 @@ const FollowersListComponent: React.FC<ParentStateItem> = ({ fullName, userName,
                     <h1 className='text-gray-400'>{fullName}</h1>
                 </div>
             </div>
-            <div>
-                <button className='bg-zinc-200 p-1 px-3 rounded-md font-[600]'>Remove</button>
-            </div>
-
+          
 
         </div>
     )

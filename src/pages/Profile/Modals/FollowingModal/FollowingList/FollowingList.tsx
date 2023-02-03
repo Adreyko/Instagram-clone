@@ -16,10 +16,10 @@ interface ParentState {
 }
 
 const FollowingList: React.FC<ParentStateItem> = ({ fullName, userName, profileImage, uid }) => {
-    const [visible, setVisible] = useState(false)
+
     const anotherUser = useAppSelector(user => user.anotherUser.user)
      const signedUser = useAppSelector(user => user.user.user)
-    const signedUserSubsribed = anotherUser.followers.find(user => user.uid === signedUser.uid)
+
     return (
         <div className='flex items-center justify-between '>
             <div className='flex py-2 mb-2 '>
@@ -29,9 +29,7 @@ const FollowingList: React.FC<ParentStateItem> = ({ fullName, userName, profileI
                     <h1 className='text-gray-400'>{fullName}</h1>
                 </div>
             </div>
-            <div>
-                <button className='bg-zinc-200 p-1 px-3 rounded-md font-[600]'>Following</button>
-            </div>
+          
 
 
         </div>

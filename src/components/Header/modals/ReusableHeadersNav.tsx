@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react'
+import React, { Dispatch, memo, SetStateAction, useEffect } from 'react'
 
 
 
@@ -30,7 +30,7 @@ const ReusableHeadersNav = ({ show, setShow, children,modalWidth,setModalWidth }
     if (!show) return null
 
     return (
-        <div className=' sm:fixed hidden inset-10 z-10  sm:flex justify-center items-center b  bg-opacity-0   ' onClick={() => setShow(false)} >
+        <div className={`sm:fixed hidden inset-10 z-10  sm:flex justify-center items-center b  bg-opacity-0       `}onClick={() => setShow(false)} >
 
             <div style={style} className={`sm:h-[100vh]  border-r-[1px] border-l-[1px] b  fixed left-16  bg-white shd rounded-r-2xl    ${modalWidth === 0 ? 'w-[20px]' : 'w-[20%]'}`} 
             onClick={e => e.stopPropagation()}>
@@ -43,4 +43,4 @@ const ReusableHeadersNav = ({ show, setShow, children,modalWidth,setModalWidth }
     )
 }
 
-export default ReusableHeadersNav
+export default memo(ReusableHeadersNav)

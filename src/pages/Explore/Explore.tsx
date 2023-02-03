@@ -42,12 +42,12 @@ const Explore = () => {
 
 
     return (
-        <div className='sm:flex bg-gray-50  '>
+        <div className='sm:flex   '>
             <div className='w-[20%]'>
                 <Header />
             </div>
-            <div className='flex items-center justify-center'>
-                <div className='grid grid-cols-3 gap-8  mt-2 w-[50%] p-2'>
+            <div className='flex items-center justify-center mb-16 '>
+                <div className='grid grid-cols-3 gap-8 sm:w-[50%] l mt-2 w-[100%] p-2 '>
                     {allUsersImage}
                 </div>
             </div>

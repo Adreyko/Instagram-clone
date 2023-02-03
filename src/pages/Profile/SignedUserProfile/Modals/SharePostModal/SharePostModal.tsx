@@ -65,7 +65,7 @@ const signedUserFollowing = signedUser.following.map(user=>(
 // ))
 
     return (
-        <div className='bg-white w-[500px] rounded-md flex  '>
+        <div className='bg-white w-[300px] sm:w-[500px] rounded-md flex  '>
             <div className='w-[100%]'>
                 <div className='flex border-b-[1px] justify-center py-2'>
                     <h1>Share</h1>

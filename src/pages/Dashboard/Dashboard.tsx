@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import { getAuth } from 'firebase/auth'
 import PagesRoutes from '../../constants/router-types'
 import Header from '../../components/Header/Header'
@@ -73,4 +73,4 @@ const MainPage = () => {
   )
 }
 
-export default MainPage
+export default memo(MainPage)

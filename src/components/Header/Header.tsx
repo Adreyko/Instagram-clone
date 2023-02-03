@@ -116,16 +116,11 @@ const Header = memo(() => {
                         </Link>
                     </div>
 
-                    <div className='a mb-4  active:opacity-25 px-2'>
-                        <Link to='/' className='flex items-center w-[100%] sm:hover:bg-gray-100 rounded-3xl p-1 px-2'>
-                            <i className="b ri-youtube-line text-2xl "></i>
-                            <h1 className='px-2'>Reels</h1>
-                        </Link>
-                    </div>
+               
                     <div className='mb-4 active:opacity-25 px-2  a'>
                         <Link to={`/direct  `} className='flex items-center  w-[100%] sm:hover:bg-gray-100 rounded-2xl p-1 px-2'>
                             {!showSearch && !showNotifications && location.pathname === '/direct' ? <i className="ri-chat-smile-2-fill text-2xl b"></i> : <i className=" b ri-chat-smile-2-line text-2xl  "></i>}
-                            <h1 className='px-2'>Messages</h1>
+                            <h1 className={window.location.pathname === '/direct' ? 'font-bold px-2' : 'px-2'}>Messages</h1>
                         </Link>
                     </div>
                     <div className='mb-4 hidden sm:block a active:opacity-25 px-2' onClick={() => showNotificationsControl()}>
@@ -145,12 +140,11 @@ const Header = memo(() => {
                         <NewPostModal setVisible={setVisible} />
                     </ReusableModal>
                     <div className='mb-4 a active:opacity-25 px-2' >
-                        <Link to={`/${signedUser.uid}/`} className='flex items-center w-[100%] sm:hover:bg-gray-100 rounded-3xl p-1 px-2 '>
+                        <Link to={`/${signedUser.uid}/`} className={`${location.pathname === `/${signedUser.uid}/` ? 'font-bold' : ''} flex items-center w-[100%]  sm:hover:bg-gray-100 rounded-3xl p-1 px-2`}>
                             <img
                                 alt='profileImg'
                                 src={`${profileImage ? profileImage : '/images/profile.png'}`}
-                                className='w-7 rounded-full h-7  b  '
-
+                                className='w-6 rounded-full h-6  b   '
                             />
                             <h1 className='px-2 '>Profile</h1>
                         </Link>
@@ -189,4 +183,4 @@ const Header = memo(() => {
     )
 })
 
-export default Header
+export default memo(Header) 

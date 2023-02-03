@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Link } from 'react-router-dom';
 import { IuserData } from '../../../interfaces/interfaces';
 
@@ -22,4 +22,4 @@ const RecPeople: React.FC<IuserData> = ({ fullName, userName, profileImage, uid 
 
 }
 
-export default RecPeople
+export default memo(RecPeople)

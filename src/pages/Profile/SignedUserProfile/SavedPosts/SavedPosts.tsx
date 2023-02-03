@@ -1,5 +1,5 @@
 import { doc, getDoc } from 'firebase/firestore'
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { db } from '../../../../firebase/firebase'
 import { useParams } from 'react-router-dom'
 import { SavedPost } from './SavedPost'
@@ -38,4 +38,4 @@ const SavedPosts = () => {
   )
 }
 
-export default SavedPosts
+export default memo(SavedPosts)

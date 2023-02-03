@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, Suspense, lazy, useState } from 'react'
 import Login from './pages/Login/Login'
-import { Routes, Route, Link, useParams } from 'react-router-dom'
-import Registration from './pages/Registration/Registration'
+import { Routes, Route, } from 'react-router-dom'
 import PagesRoutes from './constants/router-types'
-import MainPage from './pages/Dashboard/Dashboard'
-import AnotherUser from './pages/Profile/AnotherUser/AnotherUser'
-import NotFound from './pages/NotFound/NotFound'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useAppDispatch, useAppSelector } from './redux/hooks/redux-hooks'
+import { useAppDispatch } from './redux/hooks/redux-hooks'
 import { fetchUser } from './redux/slices/userSlice/userSlice/thunk/setFetchUser'
-import PostModal from './pages/Profile/Posts/PostModal/PostModal'
 import { useLocation } from 'react-router-dom'
-import Profile from './pages/Profile/Profile'
-import FollowersModal from './pages/Profile/Modals/FollowersModal/FollowersModal'
-import FollowingModal from './pages/Profile/Modals/FollowingModal/FollowingModal'
-import Explore from './pages/Explore/Explore'
-import Direct from './pages/Direct/Direct'
-import Messages from './pages/Direct/Messages/Messages'
+import LoadingBar from 'react-top-loading-bar';
+
+const Registration = lazy(() => import('./pages/Registration/Registration'))
+const MainPage = lazy(() => import('./pages/Dashboard/Dashboard'))
+const AnotherUser = lazy(() => import('./pages/Profile/AnotherUser/AnotherUser'))
+const NotFound = lazy(() => import('./pages/NotFound/NotFound'))
+const PostModal = lazy(() => import('./pages/Profile/Posts/PostModal/PostModal'))
+const Profile = lazy(() => import('./pages/Profile/Profile'))
+const FollowersModal = lazy(() => import('./pages/Profile/Modals/FollowersModal/FollowersModal'))
+const FollowingModal = lazy(() => import('./pages/Profile/Modals/FollowingModal/FollowingModal'))
+const Explore = lazy(() => import('./pages/Explore/Explore'))
+const Direct = lazy(() => import('./pages/Direct/Direct'))
 
 
 const App = () => {
+  const [progress, setProgress] = useState(100)
   const auth = getAuth();
   const dispatch = useAppDispatch()
-
-  const postId = useAppSelector(id => id.user.user.posts)
-
-  const [visible, setVisible] = useState(false)
-
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -40,8 +37,16 @@ const App = () => {
 
   return (
 
-
-    <div className=''>
+<div>
+  {progress === 100  ? 
+  <LoadingBar 
+  color='#FF8000'
+  progress={progress}
+  onLoaderFinished={() => setProgress(0)}
+  waitingTime={200}
+  height={3} />
+  :
+    <Suspense fallback={<LoadingBar />}>
       <Routes location={background || location}>
         <Route path={PagesRoutes.SIGN_IN} element={<Login />} />
         <Route path={PagesRoutes.SIGN_UP} element={<Registration />} />
@@ -54,7 +59,7 @@ const App = () => {
         <Route path={'/explore/'} element={<Explore />} />
         <Route path={`/:uid/`} element={<Profile />} />
         <Route path={`/:uid/`} element={<AnotherUser />} />
-      
+
         <Route path='*' element={<NotFound />} />
       </Routes>
       {background && <Routes>
@@ -63,6 +68,9 @@ const App = () => {
         <Route path={`/:uid/following/`} element={<FollowingModal />} />
       </Routes>}
 
+    </Suspense>
+
+    }
     </div>
   )
 }

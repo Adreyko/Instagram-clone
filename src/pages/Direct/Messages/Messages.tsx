@@ -1,15 +1,14 @@
 
-import React, { useState, useEffect } from 'react'
-import { db, storage } from '../../../firebase/firebase';
+import React, { useState, useEffect, memo } from 'react'
+import { db, } from '../../../firebase/firebase';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux-hooks';
-import { collection, query, where, onSnapshot, getDocs, doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
+import { onSnapshot, doc } from "firebase/firestore";
 import Message from './Message';
-import { uuidv4 } from '@firebase/util'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import { addMessage } from '../../../redux/slices/userSlice/userSlice/thunk/AddMessage';
 import { Link } from 'react-router-dom';
 
-const Messages = () => {
+const Messages = ({showPicker,setShowPicker} : any) => {
     const chatId = useAppSelector(chat => chat.chat.chat.chatId)
     const [chat, setChat] = useState<any>([])
     const chatUserName = useAppSelector(chat => chat.chat.chat.userName)
@@ -18,7 +17,7 @@ const Messages = () => {
     const [selectedImage, setSelectedImage] = useState<File>()
     const chatUserImage = useAppSelector(user => user.chat.chat.profileImage)
     const dispatch = useAppDispatch()
-
+   
 
     useEffect(() => {
         const getChat = () => {
@@ -48,17 +47,17 @@ const Messages = () => {
 
 
     const sendMessage = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: 'heart',post:'' }))
+        dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: 'heart', post: '' }))
         setMessage('')
 
     }
 
 
     useEffect(() => {
-
+        
         const sendPhoto = async () => {
 
-            dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: '',post:'' }))
+            dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: '', post: '' }))
             setSelectedImage(undefined)
         }
 
@@ -70,33 +69,45 @@ const Messages = () => {
     const handleKeyDown = async (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
             // 👇 Get input value
-            dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: 'heart',post:'' }))
+            dispatch(await addMessage({ selectedImage: selectedImage as File, message: message, heart: 'heart', post: '' }))
             setMessage('')
         }
     };
 
 
+    const onEmojiClick = (emojiObject: EmojiClickData) => {
+        setMessage(prev => prev + emojiObject.emoji)
+        setShowPicker(false)
+    }
 
     const messageEl = chat.map((c: any) => (
-        <Message message={c} postMessage = {c.post} />
+        <Message message={c} postMessage={c.post} />
     ))
     return (
         <>
-            <div className='  p-4 border-b-[1px] flex items-center'>
+            <div className='p-4 border-b-[1px] flex items-center'>
 
                 <Link className='flex items-center' to={`/${anotherUid}/`}>
                     <img className='h-8 w-8 rounded-2xl mr-4 cursor-pointer' src={chatUserImage} alt="" />
                     <h1 className=' font-[500] cursor-pointer hover:text-zinc-400'> {chatUserName}</h1>
                 </Link>
-                </div>
+            </div>
 
             <div className='overflow-auto h-[100%]  w-[100%] justify-between p-4'>
                 {messageEl}
-
+               
+            </div>
+            <div className='absolute bottom-16 ' onClick={e=>e.stopPropagation()}>
+            {showPicker &&
+                    <EmojiPicker
+                        width={'100%'}
+                        height={'400px'}
+                        onEmojiClick={onEmojiClick}
+                    />}
             </div>
             <div className='px-2 p-4 flex justify-center items-center'>
                 <div className=' border w-[100%]   rounded-2xl flex justify-between items-center '>
-                    <h1 className='p-2'>😀</h1>
+                    <h1 className='p-2 cursor-pointer' onClick={()=>setShowPicker((prev: any)=>!prev)}>😀</h1>
                     <input
                         placeholder='Message...'
                         type="text "
@@ -135,6 +146,6 @@ const Messages = () => {
     )
 }
 
-export default Messages
+export default memo(Messages)
 
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { getAuth } from 'firebase/auth'
 import { useAppSelector } from '../../../redux/hooks/redux-hooks'
 import { Link, Navigate } from 'react-router-dom'
@@ -43,13 +43,10 @@ const SignedUser = () => {
                     <ReusableModal visible={visible} setVisible={setVisible}>
                         <ModalUploadImage setVisible={setVisible} />
                     </ReusableModal>
-                    <div>
-                        <div>
+                   
+                        <div className='w-[70%]'>
                             <div className='sm:flex-row justify-between w-[50%] sm:w-[100%]  flex flex-col  text-center  '>
                                 <h1 className='text-2xl font-[300]'>{userName}</h1>
-                                <button className='ml-4 bg-zinc-200 p-1 px-3 rounded-md mb-2 '>Edit  profile</button>
-                                <button className='ml-4 bg-zinc-200 p-1 mb-2 px-3 rounded-md  '>Ad tools</button>
-                                <button className='ml-4 text-2xl  '><i className="ri-settings-2-line"></i></button>
                             </div>
                             <div className='flex  mt-4 mr-12 '>
                                 <h1 className='mr-8'>{posts.length} posts</h1>
@@ -69,17 +66,15 @@ const SignedUser = () => {
                                 <p>About me</p>
                             </div>
                         </div>
-                    </div>
+                    
                 </div>
                 <div>
                     <div className='mt-12 border-t-2 flex justify-center'>
                         <button onClick={() => openSaved()} className={` ${!showSavedPosts ? 'border-t-[1px] border-black' : ''} pt-4 mr-10 border-black text-[15px] flex items-center`}><i className="ri-grid-line mr-1"></i>POSTS</button>
-
-
                         <HashLink to='#saved'>
                             <button
                                 onClick={() => setShowSavedPosts(true)}
-                                className={` ${showSavedPosts ? 'border-t-[1px] borde-black' : ''} pt-4  border-black text-[15px] flex items-center`}>
+                                className={` ${showSavedPosts ? 'border-t-[1px] border-black' : ''} pt-4  border-black text-[15px] flex items-center`}>
                                 <i className="ri-bookmark-line  mr-1"></i>SAVED
                             </button>
                         </HashLink>
@@ -104,4 +99,4 @@ const SignedUser = () => {
     )
 }
 
-export default SignedUser
+export default memo(SignedUser) 

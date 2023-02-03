@@ -27,11 +27,8 @@ const ModalFollowing = ({ setVisible, uid ,profileImage}: IProps) => {
             <div className=' border-b-2 py-4 px-32'>
                 <img className='w-20 rounded-full h-20' src={profileImage} alt="pic" />
             </div>
-            <div className='flex justify-start px-4 py-4'>
-                <h1>Add to close friend</h1>
-            </div>
-            <div className='flex justify-start px-4 py-4'>
-                <button onClick={unFollowActived} >Unfollow</button>
+            <div onClick={unFollowActived} className='flex justify-start px-4 py-4 hover:bg-gray-100 rounded-xl cursor-pointer'>
+                <button>Unfollow</button>
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 
 interface IProps {
@@ -22,4 +22,4 @@ if (!visible) return null
     )
 }
 
-export default ReusableModal
+export default memo(ReusableModal)

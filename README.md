@@ -1,4 +1,4 @@
-My  own Instagram  project.
+My  own Instagram  project. (All code in branch -  features/initialProject )
 
 LINK : https://adreyko.github.io/Instagram-clone/.
 You can use this registered user : 
